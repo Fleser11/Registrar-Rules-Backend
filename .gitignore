@@ -1,0 +1,57 @@
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+
+### Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+
+### Gradle ###
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IDEs ###
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+### OpenAPI generated sources (if applicable) ###
+/generated/
+openapi.yaml
+openapi.json
+
+### Logs ###
+*.log
+logs/
+
+### OS-specific ###
+.DS_Store
+Thumbs.db
+
+### Environment ###
+.env
+.env.*
+
+### Misc ###
+*.swp
+*.swo
+
+# Optional: Ignore coverage reports
+/coverage/
+*.exec
+jacoco.exec
+
+# Optional: Ignore dependency caches
+/.m2/repository/

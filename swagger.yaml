@@ -1,0 +1,118 @@
+openapi: 3.0.4
+info:
+  title: Registrar Backend API
+  description: Manages the Alloy Analyzer & the model in the background.
+  version: 0.1.9
+
+servers:
+  - url: "localhost:8080"
+
+paths:
+  /models:
+    get:
+      summary: gets model.
+      description: Gets the model with the specified name.
+      parameters:
+        - name: name
+          in: query
+          description: The name of the model to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A JSON array of model names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+        "400":
+          description: Bad Request - The request was invalid or cannot be served.
+    post:
+      summary: Creates a new model.
+      description: Creates a new model with the specified name and subAudit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model'
+      responses:
+        "201":
+          description: Model created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+        "400":
+          description: Bad Request - The request was invalid or cannot be served.
+  /run:
+    post:
+      summary: Attempts to run the model. 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunConfig'
+      responses:
+        "200": # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunConfig'
+        "400":
+          description: Bad Request - The request was invalid or cannot be served.
+components:
+  schemas:
+    SubAudit:
+      type: object
+      properties:
+        name:
+          type: string
+        cardinality:
+          type: string
+        courses:
+          type: array
+          items:
+            type: string
+    Model:
+      type: object
+      properties:
+        info:
+          type: object
+          properties:
+            code:
+              type: string
+            "program":
+              type: string
+        subAudit:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubAudit'
+    SemConfig:
+      type: object
+      properties:
+        numCourses:
+          type: integer
+        courses:
+          type: array
+          items:
+            type: string
+    RunConfig:
+      type: object
+      properties:
+        degreeProgram:
+          type: string
+        genEdProgram:
+          type: string
+        courseConfig:
+          type: array
+          items:
+            $ref: '#/components/schemas/SemConfig'
+
+
+
+        
+
