@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -16,55 +15,32 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * ModelInfo
+ * MissingModelError
  */
 
-@JsonTypeName("Model_info")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:12:45.563455115-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
-public class ModelInfo {
+public class MissingModelError {
 
-  private String code;
+  private String message;
 
-  private String program;
-
-  public ModelInfo code(String code) {
-    this.code = code;
+  public MissingModelError message(String message) {
+    this.message = message;
     return this;
   }
 
   /**
-   * Get code
-   * @return code
+   * Get message
+   * @return message
   */
   
-  @Schema(name = "code", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("code")
-  public String getCode() {
-    return code;
+  @Schema(name = "message", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("message")
+  public String getMessage() {
+    return message;
   }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public ModelInfo program(String program) {
-    this.program = program;
-    return this;
-  }
-
-  /**
-   * Get program
-   * @return program
-  */
-  
-  @Schema(name = "program", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("program")
-  public String getProgram() {
-    return program;
-  }
-
-  public void setProgram(String program) {
-    this.program = program;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   @Override
@@ -75,22 +51,20 @@ public class ModelInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelInfo modelInfo = (ModelInfo) o;
-    return Objects.equals(this.code, modelInfo.code) &&
-        Objects.equals(this.program, modelInfo.program);
+    MissingModelError missingModelError = (MissingModelError) o;
+    return Objects.equals(this.message, missingModelError.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, program);
+    return Objects.hash(message);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelInfo {\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    program: ").append(toIndentedString(program)).append("\n");
+    sb.append("class MissingModelError {\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }

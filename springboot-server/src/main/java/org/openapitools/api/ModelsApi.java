@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-29T20:46:51.265913484-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:12:45.563455115-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "models", description = "the models API")
 public interface ModelsApi {
@@ -84,7 +84,7 @@ public interface ModelsApi {
 
 
     /**
-     * POST /models : Creates a new model.
+     * POST /models : submits a new model.
      * Creates a new model with the specified name and subAudit.
      *
      * @param model  (required)
@@ -93,7 +93,7 @@ public interface ModelsApi {
      */
     @Operation(
         operationId = "modelsPost",
-        summary = "Creates a new model.",
+        summary = "submits a new model.",
         description = "Creates a new model with the specified name and subAudit.",
         responses = {
             @ApiResponse(responseCode = "201", description = "Model created successfully", content = {

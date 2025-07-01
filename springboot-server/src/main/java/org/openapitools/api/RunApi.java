@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-29T22:01:34.789336166-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:12:45.563455115-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "run", description = "the run API")
 public interface RunApi {
