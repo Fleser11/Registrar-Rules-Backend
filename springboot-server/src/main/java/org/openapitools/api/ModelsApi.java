@@ -5,6 +5,8 @@
  */
 package org.openapitools.api;
 
+import org.openapitools.model.InternalServerError;
+import org.openapitools.model.InvalidInputError;
 import org.openapitools.model.Model;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:12:45.563455115-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:36:08.461319642-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "models", description = "the models API")
 public interface ModelsApi {
@@ -48,6 +50,7 @@ public interface ModelsApi {
      * @param name The name of the model to retrieve. (required)
      * @return A JSON array of model names (status code 200)
      *         or Bad Request - The request was invalid or cannot be served. (status code 400)
+     *         or Internal Server Error - An unexpected error occurred. (status code 500)
      */
     @Operation(
         operationId = "modelsGet",
@@ -57,7 +60,12 @@ public interface ModelsApi {
             @ApiResponse(responseCode = "200", description = "A JSON array of model names", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = Model.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.")
+            @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidInputError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error - An unexpected error occurred.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InternalServerError.class))
+            })
         }
     )
     @RequestMapping(
@@ -76,6 +84,16 @@ public interface ModelsApi {
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
             }
         });
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -90,6 +108,7 @@ public interface ModelsApi {
      * @param model  (required)
      * @return Model created successfully (status code 201)
      *         or Bad Request - The request was invalid or cannot be served. (status code 400)
+     *         or Internal Server Error - An unexpected error occurred. (status code 500)
      */
     @Operation(
         operationId = "modelsPost",
@@ -99,7 +118,12 @@ public interface ModelsApi {
             @ApiResponse(responseCode = "201", description = "Model created successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = Model.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.")
+            @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidInputError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error - An unexpected error occurred.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InternalServerError.class))
+            })
         }
     )
     @RequestMapping(
@@ -116,6 +140,16 @@ public interface ModelsApi {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"code\" : \"code\", \"program\" : \"program\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

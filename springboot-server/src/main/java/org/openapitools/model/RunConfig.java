@@ -22,7 +22,7 @@ import javax.annotation.Generated;
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:12:45.563455115-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:36:08.461319642-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class RunConfig {
 
   private String degreeProgram;

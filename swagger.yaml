@@ -28,6 +28,16 @@ paths:
                 $ref: '#/components/schemas/Model'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidInputError'
+        "500":
+          description: Internal Server Error - An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
     post:
       summary: submits a new model.
       description: Creates a new model with the specified name and subAudit.
@@ -46,6 +56,16 @@ paths:
                 $ref: '#/components/schemas/Model'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidInputError'
+        "500":
+          description: Internal Server Error - An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
   /run:
     post:
       summary: Attempts to run the model. 
@@ -64,6 +84,16 @@ paths:
                 $ref: '#/components/schemas/RunConfig'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidInputError'
+        "500":
+          description: Internal Server Error - An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
 components:
   schemas:
     SubAudit:

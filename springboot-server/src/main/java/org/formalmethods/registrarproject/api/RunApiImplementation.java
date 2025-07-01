@@ -28,6 +28,8 @@ public class RunApiImplementation implements RunApi {
     public ResponseEntity<RunConfig> runPost(RunConfig config) {
         // Implementation logic to run the model with the provided configuration
         // For now, returning a placeholder response
+
+        try {}
         RunConfig runConfig = new RunConfig();
         System.out.println("Running model with configuration: " + config);
         return ResponseEntity.ok(runConfig);
