@@ -22,35 +22,13 @@ import javax.annotation.Generated;
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:36:08.461319642-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-01T20:07:02.025195025-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class RunConfig {
-
-  private String degreeProgram;
 
   private String genEdProgram;
 
   @Valid
   private List<@Valid SemConfig> courseConfig = new ArrayList<>();
-
-  public RunConfig degreeProgram(String degreeProgram) {
-    this.degreeProgram = degreeProgram;
-    return this;
-  }
-
-  /**
-   * Get degreeProgram
-   * @return degreeProgram
-  */
-  
-  @Schema(name = "degreeProgram", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("degreeProgram")
-  public String getDegreeProgram() {
-    return degreeProgram;
-  }
-
-  public void setDegreeProgram(String degreeProgram) {
-    this.degreeProgram = degreeProgram;
-  }
 
   public RunConfig genEdProgram(String genEdProgram) {
     this.genEdProgram = genEdProgram;
@@ -109,21 +87,19 @@ public class RunConfig {
       return false;
     }
     RunConfig runConfig = (RunConfig) o;
-    return Objects.equals(this.degreeProgram, runConfig.degreeProgram) &&
-        Objects.equals(this.genEdProgram, runConfig.genEdProgram) &&
+    return Objects.equals(this.genEdProgram, runConfig.genEdProgram) &&
         Objects.equals(this.courseConfig, runConfig.courseConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(degreeProgram, genEdProgram, courseConfig);
+    return Objects.hash(genEdProgram, courseConfig);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RunConfig {\n");
-    sb.append("    degreeProgram: ").append(toIndentedString(degreeProgram)).append("\n");
     sb.append("    genEdProgram: ").append(toIndentedString(genEdProgram)).append("\n");
     sb.append("    courseConfig: ").append(toIndentedString(courseConfig)).append("\n");
     sb.append("}");

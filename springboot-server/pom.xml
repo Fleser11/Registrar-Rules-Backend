@@ -81,8 +81,9 @@
         <!-- Alloy imports -->
         <dependency>
             <groupId>org.alloytools</groupId>
-            <artifactId>org.alloytools.api</artifactId>
+            <artifactId>org.alloytools.alloy.application</artifactId>
             <version>6.2.0</version>
         </dependency>
+
     </dependencies>
 </project>

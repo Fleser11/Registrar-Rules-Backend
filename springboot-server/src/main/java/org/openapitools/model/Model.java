@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  * Model
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-06-30T20:36:08.461319642-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-01T20:07:02.025195025-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class Model {
 
   private ModelInfo info;

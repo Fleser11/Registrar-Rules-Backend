@@ -32,6 +32,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidInputError'
+        "404":
+          description: Not Found - The specified model does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingModelError'
         "500":
           description: Internal Server Error - An unexpected error occurred.
           content:
@@ -66,9 +72,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /run:
+  /models/{model}/run:
     post:
-      summary: Attempts to run the model. 
+      summary: Attempts to run the model.
+      parameters:
+        - name: model
+          in: path
+          description: The name of the model to run.
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -107,20 +120,22 @@ components:
           type: array
           items:
             type: string
-    Model:
+    Audit:
       type: object
       properties:
         info:
-          type: object
-          properties:
-            code:
-              type: string
-            "program":
-              type: string
+          $ref: '#/components/schemas/AuditInfo'
         subAudit:
           type: array
           items:
             $ref: '#/components/schemas/SubAudit'
+    AuditInfo:
+      type: object
+      properties:
+        code:
+          type: string
+        program:
+          type: string
     SemConfig:
       type: object
       properties:
@@ -133,8 +148,6 @@ components:
     RunConfig:
       type: object
       properties:
-        degreeProgram:
-          type: string
         genEdProgram:
           type: string
         courseConfig:
