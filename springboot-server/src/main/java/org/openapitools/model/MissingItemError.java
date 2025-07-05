@@ -15,15 +15,15 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * MissingAuditError
+ * MissingItemError
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T18:38:39.247600968-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
-public class MissingAuditError {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T22:02:41.348659615-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+public class MissingItemError {
 
   private String message;
 
-  public MissingAuditError message(String message) {
+  public MissingItemError message(String message) {
     this.message = message;
     return this;
   }
@@ -51,8 +51,8 @@ public class MissingAuditError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MissingAuditError missingAuditError = (MissingAuditError) o;
-    return Objects.equals(this.message, missingAuditError.message);
+    MissingItemError missingItemError = (MissingItemError) o;
+    return Objects.equals(this.message, missingItemError.message);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class MissingAuditError {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MissingAuditError {\n");
+    sb.append("class MissingItemError {\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

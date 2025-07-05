@@ -8,7 +8,7 @@ package org.openapitools.api;
 import org.openapitools.model.Audit;
 import org.openapitools.model.InternalServerError;
 import org.openapitools.model.InvalidInputError;
-import org.openapitools.model.MissingAuditError;
+import org.openapitools.model.MissingItemError;
 import org.openapitools.model.RunConfig;
 import org.openapitools.model.SemConfig;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T18:38:39.247600968-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T22:02:41.348659615-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "audits", description = "the audits API")
 public interface AuditsApi {
@@ -127,7 +127,7 @@ public interface AuditsApi {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidInputError.class))
             }),
             @ApiResponse(responseCode = "404", description = "Not Found - The specified audit does not exist.", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = MissingAuditError.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MissingItemError.class))
             }),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - An unexpected error occurred.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = InternalServerError.class))

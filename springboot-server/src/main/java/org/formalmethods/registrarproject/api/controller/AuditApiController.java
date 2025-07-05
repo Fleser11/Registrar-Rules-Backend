@@ -16,7 +16,7 @@ import org.openapitools.model.Audit;
 
 
 import org.formalmethods.registrarproject.exception.InvalidInputException;
-import org.formalmethods.registrarproject.exception.MissingAuditException;
+import org.formalmethods.registrarproject.exception.MissingItemException;
 
 import org.formalmethods.registrarproject.api.impl.AuditManager;
 import org.formalmethods.registrarproject.api.impl.AuditRunner;
@@ -24,12 +24,20 @@ import org.formalmethods.registrarproject.api.impl.AuditRunner;
 
 @RestController
 public class AuditApiController implements AuditsApi {
+    /**
+     * Basic class that implements the API interface and calls implmenetation code.
+     * As well as handling exceptions and returning appropriate HTTP responses.
+     */
+
 
     private final NativeWebRequest request;
 
+    private final AuditManager auditManager;
+
     @Autowired
-    public AuditApiController(NativeWebRequest request) {
+    public AuditApiController(NativeWebRequest request, AuditManager auditManager) {
         this.request = request;
+        this.auditManager = auditManager;
     }
 
     @Override
@@ -44,9 +52,9 @@ public class AuditApiController implements AuditsApi {
     @Override
     public ResponseEntity<Audit> auditsGet(String name) {
         try{
-            Audit audit = AuditManager.getAudit(name);
+            Audit audit = auditManager.getAudit(name);
             return ResponseEntity.ok(audit);
-        } catch (MissingAuditException e) {
+        } catch (MissingItemException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {
             System.err.println("Error in modelsGet: " + e.getMessage());
@@ -62,7 +70,7 @@ public class AuditApiController implements AuditsApi {
     @Override
     public ResponseEntity<Audit> auditsPost(Audit audit) {
         try {
-            return ResponseEntity.ok(AuditManager.storeAudit(audit));
+            return ResponseEntity.ok(auditManager.storeAudit(audit));
         }
         catch (InvalidInputException e) {
             System.err.println("Invalid input error in auditsPost: " + e.getMessage());
@@ -80,12 +88,12 @@ public class AuditApiController implements AuditsApi {
      * @return A list of SemConfig objects representing the results of the audit run.
      */
     @Override
-    public ResponseEntity<List<SemConfig>> auditsAuditRunPost(Integer audit, RunConfig runConfig) {
+    public ResponseEntity<List<SemConfig>> auditsAuditRunPost(String audit, RunConfig runConfig) {
         try {
-            Audit storedModel = AuditManager.getAudit(audit);
+            Audit storedModel = auditManager.getAudit(audit);
             AuditRunner auditRunner = new AuditRunner(storedModel);
             return ResponseEntity.ok(auditRunner.getResult());
-        } catch (MissingAuditException e) {
+        } catch (MissingItemException e) {
             System.err.println("Missing audit error in modelsModelRunPost: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {

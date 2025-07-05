@@ -9,13 +9,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator;
 
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
 @SpringBootApplication(
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
 @ComponentScan(
-    basePackages = {"org.openapitools", "org.openapitools.api" , "org.openapitools.configuration"},
+    basePackages = {"org.openapitools", "org.openapitools.api" , "org.openapitools.configuration", "org.formalmethods.registrarproject"},
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
+
+@EnableMongoRepositories(basePackages = "org.formalmethods.registrarproject.db.repositoryinterfaces")
 public class OpenApiGeneratorApplication {
 
     public static void main(String[] args) {

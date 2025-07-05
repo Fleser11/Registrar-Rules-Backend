@@ -5,13 +5,16 @@ src/main/java/org/openapitools/RFC3339DateFormat.java
 src/main/java/org/openapitools/api/ApiUtil.java
 src/main/java/org/openapitools/api/AuditsApi.java
 src/main/java/org/openapitools/api/AuditsApiController.java
+src/main/java/org/openapitools/api/CoursesApi.java
+src/main/java/org/openapitools/api/CoursesApiController.java
 src/main/java/org/openapitools/configuration/HomeController.java
 src/main/java/org/openapitools/configuration/SpringDocConfiguration.java
 src/main/java/org/openapitools/model/Audit.java
 src/main/java/org/openapitools/model/AuditInfo.java
+src/main/java/org/openapitools/model/Course.java
 src/main/java/org/openapitools/model/InternalServerError.java
 src/main/java/org/openapitools/model/InvalidInputError.java
-src/main/java/org/openapitools/model/MissingAuditError.java
+src/main/java/org/openapitools/model/MissingItemError.java
 src/main/java/org/openapitools/model/RunConfig.java
 src/main/java/org/openapitools/model/SemConfig.java
 src/main/java/org/openapitools/model/SubAudit.java

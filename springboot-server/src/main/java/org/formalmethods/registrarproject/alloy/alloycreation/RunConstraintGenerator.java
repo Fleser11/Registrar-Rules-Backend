@@ -1,4 +1,4 @@
-package org.formalmethods.registrarproject.api.impl.alloy.alloycreation;
+package org.formalmethods.registrarproject.alloy.alloycreation;
 
 import java.util.ArrayList;
 import java.lang.StringBuilder;

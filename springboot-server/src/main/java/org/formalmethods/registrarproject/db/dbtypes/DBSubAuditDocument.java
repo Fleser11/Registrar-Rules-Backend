@@ -1,4 +1,4 @@
-package org.formalmethods.registrarproject.api.impl.db.dbtypes;
+package org.formalmethods.registrarproject.db.dbtypes;
 
 import java.util.List;
 

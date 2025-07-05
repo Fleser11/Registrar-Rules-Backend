@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import jakarta.validation.Valid;
@@ -18,10 +19,10 @@ import jakarta.annotation.Generated;
  * AuditInfo
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T18:38:39.247600968-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T22:02:41.348659615-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class AuditInfo {
 
-  private Integer gid;
+  private String gid;
 
   private String code;
 
@@ -29,7 +30,7 @@ public class AuditInfo {
 
   private Boolean isGenEd = false;
 
-  public AuditInfo gid(Integer gid) {
+  public AuditInfo gid(String gid) {
     this.gid = gid;
     return this;
   }
@@ -41,11 +42,11 @@ public class AuditInfo {
   
   @Schema(name = "gid", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("gid")
-  public Integer getGid() {
+  public String getGid() {
     return gid;
   }
 
-  public void setGid(Integer gid) {
+  public void setGid(String gid) {
     this.gid = gid;
   }
 

@@ -1,4 +1,4 @@
-package org.formalmethods.registrarproject.api.impl.alloy;
+package org.formalmethods.registrarproject.alloy;
 
 import edu.mit.csail.sdg.alloy4.A4Reporter;
 import edu.mit.csail.sdg.ast.Command;

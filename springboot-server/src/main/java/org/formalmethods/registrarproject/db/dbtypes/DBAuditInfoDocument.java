@@ -1,19 +1,14 @@
-package org.formalmethods.registrarproject.api.impl.db.dbtypes;
+package org.formalmethods.registrarproject.db.dbtypes;
 
 public class DBAuditInfoDocument {
-    int gid;
     String code;
     String program;
     boolean isGenEd;
 
-    public DBAuditInfoDocument(int gid, String code, String program, boolean isGenEd) {
-        this.gid = gid;
+    public DBAuditInfoDocument(String code, String program, boolean isGenEd) {
         this.code = code;
         this.program = program;
         this.isGenEd = isGenEd;
-    }
-    public int getGid() {
-        return gid;
     }
     public String getCode() {
         return code;
