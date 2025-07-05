@@ -8,24 +8,24 @@ servers:
   - url: "localhost:8080"
 
 paths:
-  /models:
+  /audits:
     get:
-      summary: gets model.
-      description: Gets the model with the specified name.
+      summary: gets audit.
+      description: Gets the audit with the specified name.
       parameters:
         - name: name
           in: query
-          description: The name of the model to retrieve.
+          description: The name of the audit to retrieve.
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: A JSON array of model names
+          description: A JSON array of audit names
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Model'
+                $ref: '#/components/schemas/Audit'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
           content:
@@ -33,11 +33,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/InvalidInputError'
         "404":
-          description: Not Found - The specified model does not exist.
+          description: Not Found - The specified audit does not exist.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MissingModelError'
+                $ref: '#/components/schemas/MissingAuditError'
         "500":
           description: Internal Server Error - An unexpected error occurred.
           content:
@@ -45,21 +45,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
     post:
-      summary: submits a new model.
-      description: Creates a new model with the specified name and subAudit.
+      summary: submits a new audit.
+      description: Creates a new audit with the specified name and subAudit.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Model'
+              $ref: '#/components/schemas/Audit'
       responses:
         "201":
-          description: Model created successfully
+          description: Audit created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Model'
+                $ref: '#/components/schemas/Audit'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
           content:
@@ -72,16 +72,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /models/{model}/run:
+  /audits/{audit}/run:
     post:
-      summary: Attempts to run the model.
+      summary: Attempts to run the audit.
       parameters:
-        - name: model
+        - name: audit
           in: path
-          description: The name of the model to run.
+          description: The name of the audit to run.
           required: true
           schema:
-            type: string
+            type: int
       requestBody:
         required: true
         content:
@@ -94,7 +94,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RunConfig'
+                $ref: '#/components/schemas/Pathway'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
           content:
@@ -107,7 +107,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-components:
+  /courses/{code}:
+    get:
+      summary: gets course information.
+      description: Gets the course information for the specified course code.
+      parameters:
+        - name: code
+          in: path
+          description: The course code to retrieve information for.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A JSON object containing course information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        "400":
+          description: Bad Request - The request was invalid or cannot be served.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidInputError'
+        "404":
+          description: Not Found - The specified course does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingAuditError'
+        "500":
+          description: Internal Server Error - An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
   schemas:
     SubAudit:
       type: object
@@ -132,29 +168,44 @@ components:
     AuditInfo:
       type: object
       properties:
+        gid:
+          type: integer
         code:
           type: string
         program:
           type: string
+        isGenEd:
+          type: boolean
+          default: false
     SemConfig:
       type: object
       properties:
         numCourses:
           type: integer
+          nullable: true
         courses:
           type: array
+          minItems: 0
+          maxItems: 6
           items:
             type: string
+    Pathway:
+      type: array
+      minItems: 8
+      maxItems: 8
+      items:
+        $ref: '#/components/schemas/SemConfig'
+    Course:
+      type: object
+      properties:
     RunConfig:
       type: object
       properties:
         genEdProgram:
-          type: string
-        courseConfig:
-          type: array
-          items:
-            $ref: '#/components/schemas/SemConfig'
-    MissingModelError:
+          type: integer
+        pathway:
+          $ref: '#/components/schemas/Pathway'
+    MissingAuditError:
       type: object
       properties:
         message:

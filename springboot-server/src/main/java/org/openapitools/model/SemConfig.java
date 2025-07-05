@@ -8,29 +8,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.NoSuchElementException;
+import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
  * SemConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-01T20:07:02.025195025-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T18:38:39.247600968-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class SemConfig {
 
-  private Integer numCourses;
+  private JsonNullable<Integer> numCourses = JsonNullable.<Integer>undefined();
 
   @Valid
   private List<String> courses = new ArrayList<>();
 
   public SemConfig numCourses(Integer numCourses) {
-    this.numCourses = numCourses;
+    this.numCourses = JsonNullable.of(numCourses);
     return this;
   }
 
@@ -41,11 +43,11 @@ public class SemConfig {
   
   @Schema(name = "numCourses", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("numCourses")
-  public Integer getNumCourses() {
+  public JsonNullable<Integer> getNumCourses() {
     return numCourses;
   }
 
-  public void setNumCourses(Integer numCourses) {
+  public void setNumCourses(JsonNullable<Integer> numCourses) {
     this.numCourses = numCourses;
   }
 
@@ -66,7 +68,7 @@ public class SemConfig {
    * Get courses
    * @return courses
   */
-  
+  @Size(min = 0, max = 6) 
   @Schema(name = "courses", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("courses")
   public List<String> getCourses() {
@@ -86,13 +88,24 @@ public class SemConfig {
       return false;
     }
     SemConfig semConfig = (SemConfig) o;
-    return Objects.equals(this.numCourses, semConfig.numCourses) &&
+    return equalsNullable(this.numCourses, semConfig.numCourses) &&
         Objects.equals(this.courses, semConfig.courses);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(numCourses, courses);
+    return Objects.hash(hashCodeNullable(numCourses), courses);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override

@@ -10,27 +10,27 @@ import java.util.List;
 import org.openapitools.model.SemConfig;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-01T20:07:02.025195025-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T18:38:39.247600968-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class RunConfig {
 
-  private String genEdProgram;
+  private Integer genEdProgram;
 
   @Valid
-  private List<@Valid SemConfig> courseConfig = new ArrayList<>();
+  private List<@Valid SemConfig> pathway = new ArrayList<>();
 
-  public RunConfig genEdProgram(String genEdProgram) {
+  public RunConfig genEdProgram(Integer genEdProgram) {
     this.genEdProgram = genEdProgram;
     return this;
   }
@@ -42,40 +42,40 @@ public class RunConfig {
   
   @Schema(name = "genEdProgram", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("genEdProgram")
-  public String getGenEdProgram() {
+  public Integer getGenEdProgram() {
     return genEdProgram;
   }
 
-  public void setGenEdProgram(String genEdProgram) {
+  public void setGenEdProgram(Integer genEdProgram) {
     this.genEdProgram = genEdProgram;
   }
 
-  public RunConfig courseConfig(List<@Valid SemConfig> courseConfig) {
-    this.courseConfig = courseConfig;
+  public RunConfig pathway(List<@Valid SemConfig> pathway) {
+    this.pathway = pathway;
     return this;
   }
 
-  public RunConfig addCourseConfigItem(SemConfig courseConfigItem) {
-    if (this.courseConfig == null) {
-      this.courseConfig = new ArrayList<>();
+  public RunConfig addPathwayItem(SemConfig pathwayItem) {
+    if (this.pathway == null) {
+      this.pathway = new ArrayList<>();
     }
-    this.courseConfig.add(courseConfigItem);
+    this.pathway.add(pathwayItem);
     return this;
   }
 
   /**
-   * Get courseConfig
-   * @return courseConfig
+   * Get pathway
+   * @return pathway
   */
-  @Valid 
-  @Schema(name = "courseConfig", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("courseConfig")
-  public List<@Valid SemConfig> getCourseConfig() {
-    return courseConfig;
+  @Valid @Size(min = 8, max = 8) 
+  @Schema(name = "pathway", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("pathway")
+  public List<@Valid SemConfig> getPathway() {
+    return pathway;
   }
 
-  public void setCourseConfig(List<@Valid SemConfig> courseConfig) {
-    this.courseConfig = courseConfig;
+  public void setPathway(List<@Valid SemConfig> pathway) {
+    this.pathway = pathway;
   }
 
   @Override
@@ -88,12 +88,12 @@ public class RunConfig {
     }
     RunConfig runConfig = (RunConfig) o;
     return Objects.equals(this.genEdProgram, runConfig.genEdProgram) &&
-        Objects.equals(this.courseConfig, runConfig.courseConfig);
+        Objects.equals(this.pathway, runConfig.pathway);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(genEdProgram, courseConfig);
+    return Objects.hash(genEdProgram, pathway);
   }
 
   @Override
@@ -101,7 +101,7 @@ public class RunConfig {
     StringBuilder sb = new StringBuilder();
     sb.append("class RunConfig {\n");
     sb.append("    genEdProgram: ").append(toIndentedString(genEdProgram)).append("\n");
-    sb.append("    courseConfig: ").append(toIndentedString(courseConfig)).append("\n");
+    sb.append("    pathway: ").append(toIndentedString(pathway)).append("\n");
     sb.append("}");
     return sb.toString();
   }

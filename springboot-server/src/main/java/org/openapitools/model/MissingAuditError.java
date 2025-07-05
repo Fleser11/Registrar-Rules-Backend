@@ -15,15 +15,15 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * InternalServerError
+ * MissingAuditError
  */
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T18:38:39.247600968-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
-public class InternalServerError {
+public class MissingAuditError {
 
   private String message;
 
-  public InternalServerError message(String message) {
+  public MissingAuditError message(String message) {
     this.message = message;
     return this;
   }
@@ -51,8 +51,8 @@ public class InternalServerError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InternalServerError internalServerError = (InternalServerError) o;
-    return Objects.equals(this.message, internalServerError.message);
+    MissingAuditError missingAuditError = (MissingAuditError) o;
+    return Objects.equals(this.message, missingAuditError.message);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class InternalServerError {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InternalServerError {\n");
+    sb.append("class MissingAuditError {\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

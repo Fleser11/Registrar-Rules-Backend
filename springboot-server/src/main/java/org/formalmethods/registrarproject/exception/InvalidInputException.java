@@ -1,4 +1,4 @@
-package org.formalmethods.registrarproject.Exceptions;
+package org.formalmethods.registrarproject.exception;
 
 import java.lang.RuntimeException;
 
