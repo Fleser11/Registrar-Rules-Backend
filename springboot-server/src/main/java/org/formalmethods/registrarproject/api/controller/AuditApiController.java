@@ -91,7 +91,9 @@ public class AuditApiController implements AuditsApi {
     public ResponseEntity<List<SemConfig>> auditsAuditRunPost(String audit, RunConfig runConfig) {
         try {
             Audit storedModel = auditManager.getAudit(audit);
-            AuditRunner auditRunner = new AuditRunner(storedModel);
+            AuditRunner auditRunner = new AuditRunner();
+            DBService.
+            auditRunner.runAudit(storedModel, runConfig);
             return ResponseEntity.ok(auditRunner.getResult());
         } catch (MissingItemException e) {
             System.err.println("Missing audit error in modelsModelRunPost: " + e.getMessage());

@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T22:02:41.348659615-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T15:30:40.976992738-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "audits", description = "the audits API")
 public interface AuditsApi {
@@ -78,7 +78,7 @@ public interface AuditsApi {
     )
     
     default ResponseEntity<List<SemConfig>> auditsAuditRunPost(
-        @Parameter(name = "audit", description = "The name of the audit to run.", required = true, in = ParameterIn.PATH) @PathVariable("audit") Integer audit,
+        @Parameter(name = "audit", description = "The name of the audit to run.", required = true, in = ParameterIn.PATH) @PathVariable("audit") String audit,
         @Parameter(name = "RunConfig", description = "", required = true) @Valid @RequestBody RunConfig runConfig
     ) {
         getRequest().ifPresent(request -> {
@@ -146,7 +146,7 @@ public interface AuditsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : 0, \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
+                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -210,7 +210,7 @@ public interface AuditsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : 0, \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
+                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

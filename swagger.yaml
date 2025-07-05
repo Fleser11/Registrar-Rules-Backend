@@ -81,7 +81,7 @@ paths:
           description: The name of the audit to run.
           required: true
           schema:
-            type: int
+            type: string
       requestBody:
         required: true
         content:
@@ -170,7 +170,7 @@ components:
       type: object
       properties:
         gid:
-          type: integer
+          type: string
         code:
           type: string
         program:

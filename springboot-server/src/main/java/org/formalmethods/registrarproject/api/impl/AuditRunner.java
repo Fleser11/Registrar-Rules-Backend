@@ -9,38 +9,49 @@ import org.openapitools.model.Audit;
 import org.openapitools.model.RunConfig;
 import org.openapitools.model.SemConfig;
 
+import org.formalmethods.registrarproject.speccreation.*;
+import org.formalmethods.registrarproject.alloy.AlloyRunner;
+
 public class AuditRunner {
     /**
      * Class that wraps operations from the Alloy Runner to perform the audit
      */
 
+    private AlloyRunner alloyRunner = null;
+    private SpecCreator specCreator = null;
 
     private String alloySpec = null;
-    private AlloyRunner alloyRunner = null;
+    private List<SemConfig> result = null;
 
-    public AuditRunner(Audit audit) {
-        this.alloySpec = getAlloySpec(audit);
+    public AuditRunner() {
         this.alloyRunner = new AlloyRunner();
+        this.specCreator = new SpecCreator();
     }
 
-    public void runAudit(RunConfig config) {
-        
+    public void runAudit(Audit primaryAudit, Audit genEdAudit, RunConfig config) {
+        String alloySpec = specCreator.createSpec(primaryAudit, genEdAudit, config);
+        result = parseResult(alloyRunner.runAlloySpec(alloySpec));
     }
-
+    
     public List<SemConfig> getResult() {
-        //TODO: implement the logic that retrieves the result from AlloyRunner.
-        List<SemConfig> pathway = null; //parseResult(AlloyRunner.runAlloySpec());
-        return pathway;
+        if (result == null) {
+            throw new IllegalStateException("runAudit operation has not been performed yet.");
+        }
+        return result;
     }
 
-    private List<SemConfig> sparseResult(AlloyResult result) {
-        //TODO: implement the logic to parse AlloyResult into List<SemConfig>
-        return new ArrayList<SemConfig>();
+    //TODO: implement next
+    public void next() {
+        if (result == null) {
+            throw new IllegalStateException("runAudit operation has not been performed yet.");
+        }
+        result = parseResult(alloyRunner.runAlloySpec(alloySpec));
     }
 
-    private String getAlloySpec(Audit audit) {
-        //TODO: implement the logic to generate Alloy specification from Audit
-        return "";
+    private List<SemConfig> parseResult(AlloyResult result) {
+        //TODO: implement parsing
+        System.out.println("Parsing result: " + result.getResult());
+        return new ArrayList<>();
     }
 
 }

@@ -22,6 +22,9 @@ public class AlloyRunner {
     //temp implementation of class for testing
     private A4Options options = new A4Options();
 
+    /**
+     * Class to hold the result of an Alloy execution.
+     */
     public static class AlloyResult {
         String result;
         public AlloyResult(String result) {
@@ -33,22 +36,32 @@ public class AlloyRunner {
         }
     }
 
+    /**
+     * Constructor for AlloyRunner that initializes the options for the Alloy execution.
+     */
     public AlloyRunner() {
         options.inferPartialInstance = true;
         options.symmetry = 5;
     }
 
+    /**
+     * Runs the given Alloy specification and returns the result.
+     * @param alloySpec The Alloy specification to run.
+     * @return An AlloyResult containing the result of the execution.
+     */
     public AlloyResult runAlloySpec(String alloySpec){
         CompModule world = CompUtil.parseEverything_fromString(A4Reporter.NOP, alloySpec);
         Command cmd = world.getAllCommands().get(0);
 
         A4Solution ans = TranslateAlloyToKodkod.execute_command(A4Reporter.NOP, world.getAllSigs(), cmd, null); 
-        AlloyResult result = new AlloyResult(ans.toString());
+        AlloyResult result = translateResult(ans);
         return result;
     }
     
-    /**
-     * public X translateResult(A4Solution ans) {
-     * }
-     */
+    //TODO: implement
+    public AlloyResult translateResult(A4Solution ans) {
+        String result = ans.toString();
+        return new AlloyResult(result);
+    }
+    
 }

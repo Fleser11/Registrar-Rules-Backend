@@ -1,4 +1,4 @@
-package org.formalmethods.registrarproject.alloy.alloycreation;
+package org.formalmethods.registrarproject.speccreation;
 
 
 

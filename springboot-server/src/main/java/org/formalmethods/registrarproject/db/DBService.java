@@ -30,13 +30,13 @@ public class DBService {
      * @param name
      * @return A database audit document
      */
-    public DBAuditDocument getAuditByName(String name) {
-        Optional <DBAuditDocument> auditOpt = auditRepository.findByName(name);
+    public DBAuditDocument getAuditByCode(String code) {
+        Optional <DBAuditDocument> auditOpt = auditRepository.findByCode(code);
         if (auditOpt.isPresent()) {
             return auditOpt.get();
         }
         else {
-            throw new InvalidInputException("Audit with name " + name + " not found.");
+            throw new InvalidInputException("Audit with code " + code + " not found.");
         }
     }
 

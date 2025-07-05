@@ -7,6 +7,7 @@ import org.formalmethods.registrarproject.db.dbtypes.DBAuditInfoDocument;
 import org.openapitools.model.Audit;
 import org.openapitools.model.AuditInfo;
 import org.openapitools.model.SubAudit;
+import org.springframework.stereotype.Component;
 import org.formalmethods.registrarproject.db.DBService;
 
 import org.bson.types.ObjectId;
@@ -15,9 +16,10 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 
 //TODO: add input checking and error handling
+@Component
 public class AuditManager {
 
-    private final DBService dbService;
+    private DBService dbService;
 
     public AuditManager(DBService dbService) {
         this.dbService = dbService;
@@ -28,11 +30,11 @@ public class AuditManager {
             try {
                 return getAuditFromGid(auditCode);
             } catch (Exception e) {
-                return getAuditFromName(auditCode);
+                return getAuditFromCode(auditCode);
             }
         }
         else {
-            return getAuditFromName(auditCode);
+            return getAuditFromCode(auditCode);
         }
     }
     
@@ -41,8 +43,8 @@ public class AuditManager {
      * @param modelName
      * @return The model.
      */
-    public Audit getAuditFromName(String modelName) {
-        DBAuditDocument dbAudit = dbService.getAuditByName(modelName);
+    public Audit getAuditFromCode(String modelCode) {
+        DBAuditDocument dbAudit = dbService.getAuditByCode(modelCode);
         return parseToAudit(dbAudit);
     }
 

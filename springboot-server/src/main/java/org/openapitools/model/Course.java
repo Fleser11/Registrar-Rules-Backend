@@ -18,7 +18,7 @@ import jakarta.annotation.Generated;
  * Course
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-04T22:02:41.348659615-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T15:30:40.976992738-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class Course {
 
   private String code;
