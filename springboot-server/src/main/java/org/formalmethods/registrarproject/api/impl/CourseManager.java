@@ -28,9 +28,9 @@ public class CourseManager{
         Course course = new Course();
         course.setCode(courseDoc.getCode());
         course.setDept(courseDoc.getDept());
-        course.setNumber(courseDoc.getNumber());
+        course.setNumber(Integer.parseInt(courseDoc.getNumber()));
         course.setName(courseDoc.getName());
-        course.setCredits(courseDoc.getCredits());
+        course.setCredits(Float.parseFloat(courseDoc.getCredits()));
         course.setSemester(courseDoc.getSemester());
         course.setPrereqs(courseDoc.getPrereqs());
         return course;

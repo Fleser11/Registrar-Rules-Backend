@@ -22,15 +22,15 @@ import jakarta.annotation.Generated;
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T15:30:40.976992738-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T16:46:57.265609639-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class RunConfig {
 
-  private Integer genEdProgram;
+  private String genEdProgram = null;
 
   @Valid
   private List<@Valid SemConfig> pathway = new ArrayList<>();
 
-  public RunConfig genEdProgram(Integer genEdProgram) {
+  public RunConfig genEdProgram(String genEdProgram) {
     this.genEdProgram = genEdProgram;
     return this;
   }
@@ -42,11 +42,11 @@ public class RunConfig {
   
   @Schema(name = "genEdProgram", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("genEdProgram")
-  public Integer getGenEdProgram() {
+  public String getGenEdProgram() {
     return genEdProgram;
   }
 
-  public void setGenEdProgram(Integer genEdProgram) {
+  public void setGenEdProgram(String genEdProgram) {
     this.genEdProgram = genEdProgram;
   }
 

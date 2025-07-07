@@ -20,6 +20,7 @@ import org.formalmethods.registrarproject.exception.MissingItemException;
 
 import org.formalmethods.registrarproject.api.impl.AuditManager;
 import org.formalmethods.registrarproject.api.impl.AuditRunner;
+import org.formalmethods.registrarproject.db.DBService;
 
 
 @RestController
@@ -34,10 +35,12 @@ public class AuditApiController implements AuditsApi {
 
     private final AuditManager auditManager;
 
-    @Autowired
-    public AuditApiController(NativeWebRequest request, AuditManager auditManager) {
+    DBService db = null;
+    @Autowired//TODO: Make dependency injection consistent and research best practices
+    public AuditApiController(NativeWebRequest request, AuditManager auditManager, DBService db) {
         this.request = request;
         this.auditManager = auditManager;
+        this.db = db;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class AuditApiController implements AuditsApi {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {
             System.err.println("Error in modelsGet: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -69,14 +73,16 @@ public class AuditApiController implements AuditsApi {
      */
     @Override
     public ResponseEntity<Audit> auditsPost(Audit audit) {
-        try {
-            return ResponseEntity.ok(auditManager.storeAudit(audit));
+        try {//TODO: return the GID
+            ResponseEntity<Audit> response = ResponseEntity.status(HttpStatus.CREATED).body(auditManager.storeAudit(audit));
+            return response;
         }
         catch (InvalidInputException e) {
             System.err.println("Invalid input error in auditsPost: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(audit);
         } catch (Exception e) {
             System.err.println("Error in modelsPost: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -91,15 +97,16 @@ public class AuditApiController implements AuditsApi {
     public ResponseEntity<List<SemConfig>> auditsAuditRunPost(String audit, RunConfig runConfig) {
         try {
             Audit storedModel = auditManager.getAudit(audit);
-            AuditRunner auditRunner = new AuditRunner();
-            DBService.
-            auditRunner.runAudit(storedModel, runConfig);
+            Audit genEdAudit = auditManager.getAudit(runConfig.getGenEdProgram());
+            AuditRunner auditRunner = new AuditRunner(storedModel, genEdAudit, runConfig, db);
+            auditRunner.runAudit();
             return ResponseEntity.ok(auditRunner.getResult());
         } catch (MissingItemException e) {
             System.err.println("Missing audit error in modelsModelRunPost: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {
             System.err.println("Error in modelsModelRunPost: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

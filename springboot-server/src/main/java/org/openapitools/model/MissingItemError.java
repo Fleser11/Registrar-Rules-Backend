@@ -18,7 +18,7 @@ import jakarta.annotation.Generated;
  * MissingItemError
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T15:30:40.976992738-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T16:46:57.265609639-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
 public class MissingItemError {
 
   private String message;

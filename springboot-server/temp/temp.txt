@@ -1,0 +1,47 @@
+686af55422041a1697244997
+
+{
+  "genEdProgram": "GenEd",
+  "pathway": [
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    },
+    {
+      "numCourses": null,
+      "courses": [
+      ]
+    }
+  ]
+}

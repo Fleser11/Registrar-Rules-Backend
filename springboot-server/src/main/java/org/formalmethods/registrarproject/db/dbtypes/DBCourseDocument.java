@@ -6,13 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DBCourseDocument {
     private String code;
     private String dept;
-    private int number;
+    private String number;
     private String name;
-    private float credits;
+    private String credits;
     private String semester;
     private String prereqs;
 
-    public DBCourseDocument(String code, String dept, int number, String name, float credits, String semester, String prereqs) {
+    public DBCourseDocument(String code, String dept, String number, String name, String credits, String semester, String prereqs) {
         this.code = code;
         this.dept = dept;
         this.number = number;
@@ -27,13 +27,13 @@ public class DBCourseDocument {
     public String getDept() {
         return dept;
     }
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
     public String getName() {
         return name;
     }
-    public float getCredits() {
+    public String getCredits() {
         return credits;
     }
     public String getSemester() {

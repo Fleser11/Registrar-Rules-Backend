@@ -217,7 +217,7 @@ components:
       type: object
       properties:
         genEdProgram:
-          type: integer
+          type: String
         pathway:
           $ref: '#/components/schemas/Pathway'
     MissingItemError:
@@ -236,8 +236,3 @@ components:
         message:
           type: string
     
-
-
-
-        
-

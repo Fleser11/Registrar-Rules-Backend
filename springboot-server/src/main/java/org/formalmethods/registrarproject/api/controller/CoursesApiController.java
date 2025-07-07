@@ -45,6 +45,7 @@ class CourseApiController implements CoursesApi {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             System.err.println("Error in coursesCodeGet: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(500).build();
         }
         

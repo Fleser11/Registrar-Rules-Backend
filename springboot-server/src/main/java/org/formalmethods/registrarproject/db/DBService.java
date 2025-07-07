@@ -3,6 +3,7 @@ package org.formalmethods.registrarproject.db;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.formalmethods.registrarproject.db.dbtypes.DBAuditDocument;
@@ -70,6 +71,10 @@ public class DBService {
      */
     public DBCourseDocument getCourse(String code) {
         return coursesRepository.findByCode(code);
+    }
+
+    public List<DBCourseDocument> getAllCourses() {
+        return coursesRepository.findAll();
     }
 
 
