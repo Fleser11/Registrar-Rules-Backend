@@ -11,8 +11,18 @@ public class DBCourseDocument {
     private String credits;
     private String semester;
     private String prereqs;
+    private String description;
 
-    public DBCourseDocument(String code, String dept, String number, String name, String credits, String semester, String prereqs) {
+    public DBCourseDocument(
+        String code, 
+        String dept, 
+        String number, 
+        String name, 
+        String credits, 
+        String semester, 
+        String prereqs,
+        String description
+    ) {
         this.code = code;
         this.dept = dept;
         this.number = number;
@@ -20,6 +30,7 @@ public class DBCourseDocument {
         this.credits = credits;
         this.semester = semester;
         this.prereqs = prereqs;
+        this.description = description;
     }
     public String getCode() {
         return code;
@@ -41,6 +52,10 @@ public class DBCourseDocument {
     }
     public String getPrereqs() {
         return prereqs;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 }

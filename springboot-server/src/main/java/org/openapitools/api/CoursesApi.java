@@ -28,14 +28,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T16:46:57.265609639-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-07T23:20:24.360136977-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "courses", description = "the courses API")
 public interface CoursesApi {
@@ -85,7 +85,7 @@ public interface CoursesApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"number\" : 0, \"code\" : \"code\", \"credits\" : \"\", \"name\" : \"name\", \"semester\" : \"semester\", \"dept\" : \"dept\", \"prereqs\" : \"prereqs\" }";
+                    String exampleString = "{ \"number\" : 0, \"code\" : \"code\", \"credits\" : \"\", \"name\" : \"name\", \"description\" : \"description\", \"semester\" : \"semester\", \"dept\" : \"dept\", \"prereqs\" : \"prereqs\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -96,6 +96,54 @@ public interface CoursesApi {
                 }
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /courses : gets all courses.
+     * Gets all the courses
+     *
+     * @return A JSON array of course codes (status code 200)
+     *         or Internal Server Error - An unexpected error occurred. (status code 500)
+     */
+    @Operation(
+        operationId = "coursesGet",
+        summary = "gets all courses.",
+        description = "Gets all the courses",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "A JSON array of course codes", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Course.class)))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error - An unexpected error occurred.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InternalServerError.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/courses",
+        produces = { "application/json" }
+    )
+    
+    default ResponseEntity<List<Course>> coursesGet(
+        
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "[ { \"number\" : 0, \"code\" : \"code\", \"credits\" : \"\", \"name\" : \"name\", \"description\" : \"description\", \"semester\" : \"semester\", \"dept\" : \"dept\", \"prereqs\" : \"prereqs\" }, { \"number\" : 0, \"code\" : \"code\", \"credits\" : \"\", \"name\" : \"name\", \"description\" : \"description\", \"semester\" : \"semester\", \"dept\" : \"dept\", \"prereqs\" : \"prereqs\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

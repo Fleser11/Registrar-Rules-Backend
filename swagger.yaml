@@ -10,34 +10,17 @@ servers:
 paths:
   /audits:
     get:
-      summary: gets audit.
-      description: Gets the audit with the specified name.
-      parameters:
-        - name: name
-          in: query
-          description: The name of the audit to retrieve.
-          required: true
-          schema:
-            type: string
+      summary: gets all audits
+      description: Gets all the audits
       responses:
         "200":
-          description: A JSON array of audit names
+          description: A JSON array of audit names, or a specific audit if a name is provided.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Audit'
-        "400":
-          description: Bad Request - The request was invalid or cannot be served.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvalidInputError'
-        "404":
-          description: Not Found - The specified audit does not exist.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MissingItemError'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Audit'
         "500":
           description: Internal Server Error - An unexpected error occurred.
           content:
@@ -66,6 +49,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidInputError'
+        "500":
+          description: Internal Server Error - An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /audits/{audit}:
+    get:
+      summary: gets audit
+      description: Gets a specific audit
+      parameters:
+        - name: audit
+          in: path
+          description: The name of the audit to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A JSON array of audit names, or a specific audit if a name is provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audit'
+        "400":
+          description: Bad Request - The request was invalid or cannot be served.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidInputError'
+        "404":
+          description: Not Found - The specified audit does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingItemError'
         "500":
           description: Internal Server Error - An unexpected error occurred.
           content:
@@ -101,6 +120,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidInputError'
+        "500":
+          description: Internal Server Error - An unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /courses:
+    get:
+      summary: gets all courses.
+      description: Gets all the courses
+      responses:
+        "200":
+          description: A JSON array of course codes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
         "500":
           description: Internal Server Error - An unexpected error occurred.
           content:
@@ -157,6 +195,8 @@ components:
           type: array
           items:
             type: string
+        description:
+          type: string
     Audit:
       type: object
       properties:
@@ -168,6 +208,9 @@ components:
             $ref: '#/components/schemas/SubAudit'
     AuditInfo:
       type: object
+      required:
+        - code
+        - isGenEd
       properties:
         gid:
           type: string
@@ -183,7 +226,6 @@ components:
       properties:
         numCourses:
           type: integer
-          nullable: true
         courses:
           type: array
           minItems: 0
@@ -213,6 +255,8 @@ components:
           type: string
         prereqs:
           type: string
+        description:
+          type: string
     RunConfig:
       type: object
       properties:
@@ -220,6 +264,11 @@ components:
           type: String
         pathway:
           $ref: '#/components/schemas/Pathway'
+    UnsolvableError:
+      type: object
+      properties:
+        message:
+          type: string
     MissingItemError:
       type: object
       properties:

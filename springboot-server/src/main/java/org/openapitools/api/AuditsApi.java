@@ -30,14 +30,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T16:46:57.265609639-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-07T23:20:24.360136977-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "audits", description = "the audits API")
 public interface AuditsApi {
@@ -45,6 +45,73 @@ public interface AuditsApi {
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
+
+    /**
+     * GET /audits/{audit} : gets audit
+     * Gets a specific audit
+     *
+     * @param audit The name of the audit to retrieve. (required)
+     * @return A JSON array of audit names, or a specific audit if a name is provided. (status code 200)
+     *         or Bad Request - The request was invalid or cannot be served. (status code 400)
+     *         or Not Found - The specified audit does not exist. (status code 404)
+     *         or Internal Server Error - An unexpected error occurred. (status code 500)
+     */
+    @Operation(
+        operationId = "auditsAuditGet",
+        summary = "gets audit",
+        description = "Gets a specific audit",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "A JSON array of audit names, or a specific audit if a name is provided.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Audit.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidInputError.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not Found - The specified audit does not exist.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = MissingItemError.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error - An unexpected error occurred.", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = InternalServerError.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/audits/{audit}",
+        produces = { "application/json" }
+    )
+    
+    default ResponseEntity<Audit> auditsAuditGet(
+        @Parameter(name = "audit", description = "The name of the audit to retrieve.", required = true, in = ParameterIn.PATH) @PathVariable("audit") String audit
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"message\" : \"message\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
 
     /**
      * POST /audits/{audit}/run : Attempts to run the audit.
@@ -106,28 +173,19 @@ public interface AuditsApi {
 
 
     /**
-     * GET /audits : gets audit.
-     * Gets the audit with the specified name.
+     * GET /audits : gets all audits
+     * Gets all the audits
      *
-     * @param name The name of the audit to retrieve. (required)
-     * @return A JSON array of audit names (status code 200)
-     *         or Bad Request - The request was invalid or cannot be served. (status code 400)
-     *         or Not Found - The specified audit does not exist. (status code 404)
+     * @return A JSON array of audit names, or a specific audit if a name is provided. (status code 200)
      *         or Internal Server Error - An unexpected error occurred. (status code 500)
      */
     @Operation(
         operationId = "auditsGet",
-        summary = "gets audit.",
-        description = "Gets the audit with the specified name.",
+        summary = "gets all audits",
+        description = "Gets all the audits",
         responses = {
-            @ApiResponse(responseCode = "200", description = "A JSON array of audit names", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Audit.class))
-            }),
-            @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidInputError.class))
-            }),
-            @ApiResponse(responseCode = "404", description = "Not Found - The specified audit does not exist.", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = MissingItemError.class))
+            @ApiResponse(responseCode = "200", description = "A JSON array of audit names, or a specific audit if a name is provided.", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Audit.class)))
             }),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - An unexpected error occurred.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = InternalServerError.class))
@@ -140,23 +198,13 @@ public interface AuditsApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<Audit> auditsGet(
-        @NotNull @Parameter(name = "name", description = "The name of the audit to retrieve.", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "name", required = true) String name
+    default ResponseEntity<List<Audit>> auditsGet(
+        
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"message\" : \"message\" }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"message\" : \"message\" }";
+                    String exampleString = "[ { \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }, { \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -210,7 +258,7 @@ public interface AuditsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
+                    String exampleString = "{ \"subAudit\" : [ { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" }, { \"courses\" : [ \"courses\", \"courses\" ], \"name\" : \"name\", \"description\" : \"description\", \"cardinality\" : \"cardinality\" } ], \"info\" : { \"gid\" : \"gid\", \"code\" : \"code\", \"isGenEd\" : false, \"program\" : \"program\" } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

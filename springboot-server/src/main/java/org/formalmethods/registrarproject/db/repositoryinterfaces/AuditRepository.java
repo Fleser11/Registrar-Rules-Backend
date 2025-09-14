@@ -9,4 +9,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface AuditRepository extends MongoRepository<DBAuditDocument, ObjectId> {
     Optional<DBAuditDocument> findById(ObjectId gid);
     Optional<DBAuditDocument> findByCode(String name);
+    
 }

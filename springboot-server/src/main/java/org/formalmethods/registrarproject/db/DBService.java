@@ -41,6 +41,11 @@ public class DBService {
         }
     }
 
+    public List<DBAuditDocument> getAllAudits() {
+        return auditRepository.findAll();
+        
+    }
+
     /**
      * Retrieves a list of audits from the database
      * @return A list of database audit documents

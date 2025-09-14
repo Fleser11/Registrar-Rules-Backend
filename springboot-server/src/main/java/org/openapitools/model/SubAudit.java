@@ -9,19 +9,19 @@ import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
 /**
  * SubAudit
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T16:46:57.265609639-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-07T23:20:24.360136977-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class SubAudit {
 
   private String name;
@@ -30,6 +30,8 @@ public class SubAudit {
 
   @Valid
   private List<String> courses = new ArrayList<>();
+
+  private String description;
 
   public SubAudit name(String name) {
     this.name = name;
@@ -99,6 +101,26 @@ public class SubAudit {
     this.courses = courses;
   }
 
+  public SubAudit description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+  */
+  
+  @Schema(name = "description", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("description")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -110,12 +132,13 @@ public class SubAudit {
     SubAudit subAudit = (SubAudit) o;
     return Objects.equals(this.name, subAudit.name) &&
         Objects.equals(this.cardinality, subAudit.cardinality) &&
-        Objects.equals(this.courses, subAudit.courses);
+        Objects.equals(this.courses, subAudit.courses) &&
+        Objects.equals(this.description, subAudit.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, cardinality, courses);
+    return Objects.hash(name, cardinality, courses, description);
   }
 
   @Override
@@ -125,6 +148,7 @@ public class SubAudit {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    cardinality: ").append(toIndentedString(cardinality)).append("\n");
     sb.append("    courses: ").append(toIndentedString(courses)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

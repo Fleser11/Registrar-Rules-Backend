@@ -46,7 +46,7 @@ public class SpecCreator {
         String runCommandSpec = runCommandGenerator.createCommandString(subAuditNames);
 
         String specString = courseSpec + "\n" + auditSpec + "\n" + runConfigSpec + "\n" + runCommandSpec;
-        System.out.print(specString);
+        // System.out.print(specString);
         return specString;
     }
 

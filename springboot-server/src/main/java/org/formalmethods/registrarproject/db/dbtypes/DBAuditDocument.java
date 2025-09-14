@@ -4,9 +4,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-import org.formalmethods.registrarproject.db.dbtypes.DBSubAuditDocument;
+// import org.formalmethods.registrarproject.db.dbtypes.DBSubAuditDocument;
 import org.bson.types.ObjectId;
-import org.formalmethods.registrarproject.db.dbtypes.DBAuditInfoDocument;
+// import org.formalmethods.registrarproject.db.dbtypes.DBAuditInfoDocument;
 
 @Document(collection = "audits")
 public class DBAuditDocument {

@@ -48,12 +48,25 @@ public class AuditApiController implements AuditsApi {
         return Optional.ofNullable(request);
     }
 
+    @Override 
+    public ResponseEntity<List<Audit>> auditsGet() {
+        try {
+            List<Audit> audits = auditManager.getAllAudits();
+            return ResponseEntity.ok(audits);
+        } catch (Exception e) {
+            System.err.println("Error in modelsGet: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     /**
-     * Retrieves a list of all stored audits.
-     * @return A list of Audit objects.
+     * Retrieves a specific audit.
+     * @param name The ID or code of the audit to retrieve.
+     * @return The requested audit.
      */
     @Override
-    public ResponseEntity<Audit> auditsGet(String name) {
+    public ResponseEntity<Audit> auditsAuditGet(String name) {
         try{
             Audit audit = auditManager.getAudit(name);
             return ResponseEntity.ok(audit);

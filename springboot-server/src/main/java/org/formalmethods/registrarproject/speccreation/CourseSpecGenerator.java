@@ -47,13 +47,13 @@ class CourseSpecGenerator {
     private void loadPrereqsRecursive(CourseCollection baseCollection, CourseCollection courseCollection, String course){
         if (courseCollection.getCourse(course) == null) {
             if (baseCollection.getCourse(course) == null) {
-                System.out.println("Course " + course + " not found in either collection.");
+                System.err.println("Course " + course + " not found in either collection.");
                 Pattern coursePattern = Pattern.compile("([a-zA-Z][a-zA-Z]+)([0-9][0-9][0-9][0-9])");
                 Matcher matcher = coursePattern.matcher(course);
                 if (matcher.matches()) {
                     String dept = matcher.group(1);
                     String num = matcher.group(2);
-                    System.out.println("Adding course " + dept + num + " to collection.");
+                    System.err.println("Adding course " + dept + num + " to collection.");
                     baseCollection.addCourse(dept + num, dept, Integer.parseInt(num), "Unknown Course", 0.0f, "Unknown Semester", "");
                 } else {
                     throw new IllegalArgumentException("Invalid course format: " + course);

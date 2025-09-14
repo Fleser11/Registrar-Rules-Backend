@@ -6,19 +6,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import jakarta.annotation.Generated;
+import javax.annotation.Generated;
 
 /**
  * Course
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-05T16:46:57.265609639-05:00[America/Chicago]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-07T23:20:24.360136977-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class Course {
 
   private String code;
@@ -34,6 +34,8 @@ public class Course {
   private String semester;
 
   private String prereqs;
+
+  private String description;
 
   public Course code(String code) {
     this.code = code;
@@ -175,6 +177,26 @@ public class Course {
     this.prereqs = prereqs;
   }
 
+  public Course description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * Get description
+   * @return description
+  */
+  
+  @Schema(name = "description", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("description")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -190,12 +212,13 @@ public class Course {
         Objects.equals(this.name, course.name) &&
         Objects.equals(this.credits, course.credits) &&
         Objects.equals(this.semester, course.semester) &&
-        Objects.equals(this.prereqs, course.prereqs);
+        Objects.equals(this.prereqs, course.prereqs) &&
+        Objects.equals(this.description, course.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, dept, number, name, credits, semester, prereqs);
+    return Objects.hash(code, dept, number, name, credits, semester, prereqs, description);
   }
 
   @Override
@@ -209,6 +232,7 @@ public class Course {
     sb.append("    credits: ").append(toIndentedString(credits)).append("\n");
     sb.append("    semester: ").append(toIndentedString(semester)).append("\n");
     sb.append("    prereqs: ").append(toIndentedString(prereqs)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,6 +9,7 @@ import org.openapitools.model.AuditInfo;
 import org.openapitools.model.SubAudit;
 import org.springframework.stereotype.Component;
 import org.formalmethods.registrarproject.db.DBService;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 
@@ -36,6 +37,15 @@ public class AuditManager {
         else {
             return getAuditFromCode(auditCode);
         }
+    }
+
+    public List<Audit> getAllAudits(){
+        List<DBAuditDocument> dbAudits = dbService.getAllAudits();
+        List<Audit> audits = new ArrayList<>();
+        dbAudits.forEach(dbAudit -> {
+            audits.add(parseToAudit(dbAudit));
+        });
+        return audits;
     }
     
     /**
@@ -82,7 +92,8 @@ public class AuditManager {
             DBSubAuditDocument dbSubAudit = new DBSubAuditDocument(
                 subAudit.getName(),
                 subAudit.getCardinality(),
-                subAudit.getCourses()
+                subAudit.getCourses(),
+                subAudit.getDescription()
             );
             subAudits.add(dbSubAudit);
         });
