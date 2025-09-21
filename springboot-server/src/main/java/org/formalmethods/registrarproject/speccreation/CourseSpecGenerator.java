@@ -19,7 +19,10 @@ class CourseSpecGenerator {
             prereqs: set Course
         }
 
-        var sig semCourses in Course{}
+        var sig semCourses in Course{}{
+        #semCourses <= 6
+        }
+
         var sig takenCourses in semCourses{}
         var sig passedCourses in takenCourses{}
 
@@ -29,7 +32,7 @@ class CourseSpecGenerator {
         sig Course4000 in Course{}
         fact {
             disj[Course1000, Course2000, Course3000, Course4000]
-            all c: semCourses | c in (Course1000 + Course2000 + Course3000 + Course4000)    
+            and (all c: semCourses | c in (Course1000 + Course2000 + Course3000 + Course4000))
         }
         """;
 

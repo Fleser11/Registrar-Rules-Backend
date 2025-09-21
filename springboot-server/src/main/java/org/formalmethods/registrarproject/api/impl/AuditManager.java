@@ -136,6 +136,7 @@ public class AuditManager {
             subAudit.setName(dbSubAudit.getName());
             subAudit.setCardinality(dbSubAudit.getCardinality());
             subAudit.setCourses(dbSubAudit.getCourses());
+            subAudit.setDescription(dbSubAudit.getDescription());
             subAudits.add(subAudit);
         });
 

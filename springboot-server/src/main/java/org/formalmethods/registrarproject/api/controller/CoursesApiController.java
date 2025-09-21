@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
+
+import java.util.List;
 import java.util.Optional;
 
 import org.formalmethods.registrarproject.exception.*;
@@ -49,5 +51,16 @@ class CourseApiController implements CoursesApi {
             return ResponseEntity.status(500).build();
         }
         
+    }
+
+    public ResponseEntity<List<Course>> coursesGet(){
+        try {
+            List<Course> courses = courseManager.getAllCourses();
+            return ResponseEntity.ok(courses);
+        } catch (Exception e) {
+            System.err.println("Error in coursesGet: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
     }
 }

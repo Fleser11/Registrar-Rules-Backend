@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
-import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -23,16 +21,16 @@ import javax.annotation.Generated;
  * SemConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-07T23:20:24.360136977-04:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T18:46:29.410457831-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class SemConfig {
 
-  private JsonNullable<Integer> numCourses = JsonNullable.<Integer>undefined();
+  private Integer numCourses;
 
   @Valid
   private List<String> courses = new ArrayList<>();
 
   public SemConfig numCourses(Integer numCourses) {
-    this.numCourses = JsonNullable.of(numCourses);
+    this.numCourses = numCourses;
     return this;
   }
 
@@ -43,11 +41,11 @@ public class SemConfig {
   
   @Schema(name = "numCourses", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("numCourses")
-  public JsonNullable<Integer> getNumCourses() {
+  public Integer getNumCourses() {
     return numCourses;
   }
 
-  public void setNumCourses(JsonNullable<Integer> numCourses) {
+  public void setNumCourses(Integer numCourses) {
     this.numCourses = numCourses;
   }
 
@@ -88,24 +86,13 @@ public class SemConfig {
       return false;
     }
     SemConfig semConfig = (SemConfig) o;
-    return equalsNullable(this.numCourses, semConfig.numCourses) &&
+    return Objects.equals(this.numCourses, semConfig.numCourses) &&
         Objects.equals(this.courses, semConfig.courses);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(numCourses), courses);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(numCourses, courses);
   }
 
   @Override

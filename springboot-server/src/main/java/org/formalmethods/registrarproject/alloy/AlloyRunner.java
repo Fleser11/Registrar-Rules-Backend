@@ -15,6 +15,8 @@ import kodkod.engine.config.Options;
 
 import edu.mit.csail.sdg.ast.Sig;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -62,7 +64,12 @@ public class AlloyRunner {
      */
     public AlloyRunner() {
         options.inferPartialInstance = true;
-        options.symmetry = 5;
+        options.symmetry = 20;
+        options.noOverflow = true;
+
+        // options.solver = A4Options.SatSolver.SAT4j;
+        // options.skolemDepth = 3;
+        // options.noOverflow = false;
     }
 
     /**

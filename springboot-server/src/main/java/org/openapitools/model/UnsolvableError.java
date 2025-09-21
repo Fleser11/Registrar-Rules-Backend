@@ -15,15 +15,15 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * InvalidInputError
+ * UnsolvableError
  */
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T18:46:29.410457831-04:00[America/New_York]", comments = "Generator version: 7.6.0")
-public class InvalidInputError {
+public class UnsolvableError {
 
   private String message;
 
-  public InvalidInputError message(String message) {
+  public UnsolvableError message(String message) {
     this.message = message;
     return this;
   }
@@ -51,8 +51,8 @@ public class InvalidInputError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InvalidInputError invalidInputError = (InvalidInputError) o;
-    return Objects.equals(this.message, invalidInputError.message);
+    UnsolvableError unsolvableError = (UnsolvableError) o;
+    return Objects.equals(this.message, unsolvableError.message);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class InvalidInputError {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InvalidInputError {\n");
+    sb.append("class UnsolvableError {\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

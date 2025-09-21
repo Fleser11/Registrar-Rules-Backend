@@ -18,7 +18,7 @@ import javax.annotation.Generated;
  * AuditInfo
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-07T23:20:24.360136977-04:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T18:46:29.410457831-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class AuditInfo {
 
   private String gid;
@@ -28,6 +28,18 @@ public class AuditInfo {
   private String program;
 
   private Boolean isGenEd = false;
+
+  public AuditInfo() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public AuditInfo(String code, Boolean isGenEd) {
+    this.code = code;
+    this.isGenEd = isGenEd;
+  }
 
   public AuditInfo gid(String gid) {
     this.gid = gid;
@@ -58,8 +70,8 @@ public class AuditInfo {
    * Get code
    * @return code
   */
-  
-  @Schema(name = "code", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "code", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("code")
   public String getCode() {
     return code;
@@ -98,8 +110,8 @@ public class AuditInfo {
    * Get isGenEd
    * @return isGenEd
   */
-  
-  @Schema(name = "isGenEd", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "isGenEd", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("isGenEd")
   public Boolean getIsGenEd() {
     return isGenEd;
