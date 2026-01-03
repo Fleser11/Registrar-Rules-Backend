@@ -36,16 +36,17 @@ public class SpecCreator {
         AuditGenerator auditGenerator = new AuditGenerator(primaryAudit, genEdAudit);
         String auditSpec = auditGenerator.generateSpecString();
 
+        AbstractInstancesGenerator abstractInstancesGenerator = new AbstractInstancesGenerator(runConfig);
+        String abstractInstancesSpec = abstractInstancesGenerator.getAbstractInstancesString();
 
-
-        RunConfigGenerator runConfigGenerator = new RunConfigGenerator(runConfig);
+        RunConfigGenerator runConfigGenerator = new RunConfigGenerator(runConfig, abstractInstancesGenerator.getAbstractInstances());
         String runConfigSpec = runConfigGenerator.getRunConfigString();
 
         CommandGenerator runCommandGenerator = new CommandGenerator();
         ArrayList<String> subAuditNames = auditGenerator.getSubAuditNames();
         String runCommandSpec = runCommandGenerator.createCommandString(subAuditNames);
 
-        String specString = courseSpec + "\n" + auditSpec + "\n" + runConfigSpec + "\n" + runCommandSpec;
+        String specString = courseSpec + "\n" + auditSpec + "\n" + abstractInstancesSpec + "\n" + runConfigSpec + "\n" + runCommandSpec;
         // System.out.print(specString);
         return specString;
     }

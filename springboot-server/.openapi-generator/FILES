@@ -18,6 +18,7 @@ src/main/java/org/openapitools/model/MissingItemError.java
 src/main/java/org/openapitools/model/RunConfig.java
 src/main/java/org/openapitools/model/SemConfig.java
 src/main/java/org/openapitools/model/SubAudit.java
+src/main/java/org/openapitools/model/UnsolvableError.java
 src/main/resources/application.properties
 src/main/resources/openapi.yaml
 src/test/java/org/openapitools/OpenApiGeneratorApplicationTests.java

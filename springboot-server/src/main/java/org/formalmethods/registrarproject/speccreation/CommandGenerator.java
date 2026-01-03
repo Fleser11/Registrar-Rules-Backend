@@ -18,7 +18,7 @@ public class CommandGenerator {
         bodyBuilder.append(String.format("and (disj[%s])\n}\n", String.join(",", modelSubAudits)));
 
         //This should essentially take the parameters and specify that the courses 
-        String runLine = "run {eventually complete} for 74 Course, exactly 8 steps\n";
+        String runLine = "run {eventually complete} for 74 Course, exactly 8 steps, 5 int\n";
         return header + bodyBuilder.toString() + runLine;
     } 
 

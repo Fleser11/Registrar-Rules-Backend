@@ -16,6 +16,9 @@ import org.formalmethods.registrarproject.db.DBService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AuditRunner {
     /**
      * Class that wraps operations from the Alloy Runner to perform the audit
@@ -70,7 +73,7 @@ public class AuditRunner {
                         JSONArray courseJSONArr = (JSONArray) atomObject;
                         for(int k = 0; k < courseJSONArr.length(); k++) {
                                 String courseName = courseJSONArr.getJSONObject(k).getString("label");
-                                semConfig.addCoursesItem(courseName);
+                                semConfig.addCoursesItem(cleanCourseName(courseName));
                             }
                     } else {
                         // if(atomObject != null){
@@ -87,6 +90,15 @@ public class AuditRunner {
             semConfigs.add(semConfig);
         }
         return semConfigs;
+    }
+
+    private String cleanCourseName(String courseName) {
+        Pattern abPattern = Pattern.compile("(abstract_)?([a-zA-Z0-9]+)(_[0-9]+)?\\$[0-9]+");
+        Matcher matcher = abPattern.matcher(courseName);
+        if (matcher.matches()) {
+            return matcher.group(1) != null ? matcher.group(1) + matcher.group(2) : matcher.group(2);
+        }
+        return courseName;
     }
 
 }

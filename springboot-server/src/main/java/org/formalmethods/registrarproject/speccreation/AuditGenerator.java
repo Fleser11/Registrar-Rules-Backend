@@ -17,20 +17,15 @@ public class AuditGenerator {
         }
 
         pred doNothing{
-            (#semCourses <= 6)
-            and (always semCourses' = semCourses)
+            always semCourses' = semCourses
         }
 
         pred semester {
             all c: semCourses' | prereqsMet[c]
-            and (no k : semCourses' | once k in semCourses)
         }
 
         fact{
             (no semCourses.prereqs)
-            and (always #semCourses <= 6)
-            and (always #semCourses >= 4)
-            and (semCourses' != semCourses)
             and (always Course' = Course)
             and (always(
                 semester
