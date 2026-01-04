@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import org.formalmethods.registrarproject.alloy.AlloyRunner;
 import org.formalmethods.registrarproject.alloy.AlloyRunner.AlloyResult;
+import org.formalmethods.registrarproject.alloy.AlloyRunner.AlloySuccessfulResult;
+import org.formalmethods.registrarproject.alloy.AlloyRunner.AlloyFailedResult;
+
 import org.openapitools.model.Audit;
 import org.openapitools.model.RunConfig;
 import org.openapitools.model.SemConfig;
@@ -37,7 +40,13 @@ public class AuditRunner {
 
     public void runAudit() {
         String alloySpec = specCreator.getSpecString();
-        result = parseResult(alloyRunner.runAlloySpec(alloySpec));
+        AlloyResult alloyResult = alloyRunner.runAlloySpec(alloySpec);
+        if (alloyResult instanceof AlloyFailedResult) {
+            return;
+        }
+        else if (alloyResult instanceof AlloySuccessfulResult) {
+            result = parseResult((AlloySuccessfulResult) alloyResult);
+        }    
     }
     
     public List<SemConfig> getResult() {
@@ -48,14 +57,14 @@ public class AuditRunner {
     }
 
     //TODO: implement next
-    public void next() {
-        if (result == null) {
-            throw new IllegalStateException("runAudit operation has not been performed yet.");
-        }
-        result = parseResult(alloyRunner.runAlloySpec(alloySpec));
-    }
+    // public void next() {
+    //     if (result == null) {
+    //         throw new IllegalStateException("runAudit operation has not been performed yet.");
+    //     }
+    //     result = parseResult(alloyRunner.runAlloySpec(alloySpec));
+    // }
 
-    private List<SemConfig> parseResult(AlloyResult result) {
+    private List<SemConfig> parseResult(AlloySuccessfulResult result) {
         //TODO: implement parsing
         JSONObject json = result.getJsonResult();
         JSONArray steps = json.getJSONObject("alloy").getJSONArray("instance");

@@ -13,7 +13,7 @@ public class AuditGenerator {
 
     static final String AUDIT_HEADER = """
         pred prereqsMet[c: Course]{
-        all p: c.prereqs | once p in passedCourses
+        all p: c.prereqs | (once p in passedCourses or p in transferCourses)
         }
 
         pred doNothing{

@@ -8,7 +8,7 @@ public class CommandGenerator {
         String header = "pred complete {\n";
         StringBuilder bodyBuilder = new StringBuilder();
         
-        String onceExistingTemplate = "(all c: %s | once c in passedCourses)\n";
+        String onceExistingTemplate = "(all c: %s | (once c in passedCourses or once c in transferCourses))\n";
 
         for (int i = 0; i < modelSubAudits.size(); i++) {
             if (i > 0)

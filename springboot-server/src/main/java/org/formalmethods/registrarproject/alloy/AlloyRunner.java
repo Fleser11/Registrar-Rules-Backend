@@ -34,14 +34,17 @@ public class AlloyRunner {
     //temp implementation of class for testing
     private A4Options options = new A4Options();
 
+    public static interface AlloyResult{
+
+    }
 
     /**
      * Class to hold the result of an Alloy execution.
      */
-    public static class AlloyResult {
+    public static class AlloySuccessfulResult implements AlloyResult{
         JSONObject jsonResult;
         String XMLResult;
-        public AlloyResult(A4Solution ans) {
+        public AlloySuccessfulResult(A4Solution ans) {
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
             // System.out.println(ans.debugExtractKInstance().toString());
@@ -57,6 +60,9 @@ public class AlloyRunner {
         public String getXMLResult() {
             return XMLResult;
         }
+    }
+
+    public static class AlloyFailedResult implements AlloyRunner.AlloyResult{
     }
 
     /**
@@ -82,8 +88,15 @@ public class AlloyRunner {
         // System.out.println("All Commands" + world.getAllCommands().toString());
         Command cmd = world.getAllCommands().get(0);
 
-        A4Solution ans = TranslateAlloyToKodkod.execute_command(A4Reporter.NOP, world.getAllSigs(), cmd, options); 
-        AlloyResult result = new AlloyResult(ans);
+        AlloyResult result;
+        try{
+            A4Solution ans = TranslateAlloyToKodkod.execute_command(A4Reporter.NOP, world.getAllSigs(), cmd, options); 
+            result = new AlloySuccessfulResult(ans);
+
+        }
+        catch(Exception e){
+            result = new AlloyFailedResult();
+        }
         return result;
     }
     

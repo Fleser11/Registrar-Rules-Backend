@@ -9,10 +9,13 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
+
 import org.openapitools.model.RunConfig;
 import org.openapitools.model.SemConfig;
 import org.openapitools.model.Audit;
+import org.openapitools.model.UnsolvableError;
 
 
 import org.formalmethods.registrarproject.exception.InvalidInputException;
@@ -113,7 +116,14 @@ public class AuditApiController implements AuditsApi {
             Audit genEdAudit = auditManager.getAudit(runConfig.getGenEdProgram());
             AuditRunner auditRunner = new AuditRunner(storedModel, genEdAudit, runConfig, db);
             auditRunner.runAudit();
-            return ResponseEntity.ok(auditRunner.getResult());
+
+            List<SemConfig> result = auditRunner.getResult();
+            if (result == null || result.isEmpty()) {
+                return ResponseEntity.ok(new UnsolvableError().message("No valid configurations found."));
+            }
+            else {
+                return ResponseEntity.ok(result);
+            }
         } catch (MissingItemException e) {
             System.err.println("Missing audit error in modelsModelRunPost: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

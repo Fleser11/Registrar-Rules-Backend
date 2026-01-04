@@ -22,13 +22,16 @@ import javax.annotation.Generated;
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T18:46:29.410457831-04:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-03T19:02:31.923576971-05:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class RunConfig {
 
   private String genEdProgram = null;
 
   @Valid
   private List<@Valid SemConfig> pathway = new ArrayList<>();
+
+  @Valid
+  private List<String> transferCourses = new ArrayList<>();
 
   public RunConfig genEdProgram(String genEdProgram) {
     this.genEdProgram = genEdProgram;
@@ -67,7 +70,7 @@ public class RunConfig {
    * Get pathway
    * @return pathway
   */
-  @Valid @Size(min = 8, max = 8) 
+  @Valid @Size(min = 6, max = 9) 
   @Schema(name = "pathway", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("pathway")
   public List<@Valid SemConfig> getPathway() {
@@ -76,6 +79,34 @@ public class RunConfig {
 
   public void setPathway(List<@Valid SemConfig> pathway) {
     this.pathway = pathway;
+  }
+
+  public RunConfig transferCourses(List<String> transferCourses) {
+    this.transferCourses = transferCourses;
+    return this;
+  }
+
+  public RunConfig addTransferCoursesItem(String transferCoursesItem) {
+    if (this.transferCourses == null) {
+      this.transferCourses = new ArrayList<>();
+    }
+    this.transferCourses.add(transferCoursesItem);
+    return this;
+  }
+
+  /**
+   * Get transferCourses
+   * @return transferCourses
+  */
+  
+  @Schema(name = "transferCourses", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("transferCourses")
+  public List<String> getTransferCourses() {
+    return transferCourses;
+  }
+
+  public void setTransferCourses(List<String> transferCourses) {
+    this.transferCourses = transferCourses;
   }
 
   @Override
@@ -88,12 +119,13 @@ public class RunConfig {
     }
     RunConfig runConfig = (RunConfig) o;
     return Objects.equals(this.genEdProgram, runConfig.genEdProgram) &&
-        Objects.equals(this.pathway, runConfig.pathway);
+        Objects.equals(this.pathway, runConfig.pathway) &&
+        Objects.equals(this.transferCourses, runConfig.transferCourses);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(genEdProgram, pathway);
+    return Objects.hash(genEdProgram, pathway, transferCourses);
   }
 
   @Override
@@ -102,6 +134,7 @@ public class RunConfig {
     sb.append("class RunConfig {\n");
     sb.append("    genEdProgram: ").append(toIndentedString(genEdProgram)).append("\n");
     sb.append("    pathway: ").append(toIndentedString(pathway)).append("\n");
+    sb.append("    transferCourses: ").append(toIndentedString(transferCourses)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -19,6 +19,8 @@ class CourseSpecGenerator {
             prereqs: set Course
         }
 
+        sig transferCourses in Course{}
+
         var sig semCourses in Course{}{
         #semCourses <= 6
         }
