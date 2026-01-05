@@ -3,6 +3,7 @@ package org.formalmethods.registrarproject.api.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.openapitools.model.Audit;
+import org.openapitools.model.AuditsAuditRunPost200Response;
 import org.openapitools.api.AuditsApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -110,7 +111,7 @@ public class AuditApiController implements AuditsApi {
      * @return A list of SemConfig objects representing the results of the audit run.
      */
     @Override
-    public ResponseEntity<List<SemConfig>> auditsAuditRunPost(String audit, RunConfig runConfig) {
+    public ResponseEntity<AuditsAuditRunPost200Response> auditsAuditRunPost(String audit, RunConfig runConfig) {
         try {
             Audit storedModel = auditManager.getAudit(audit);
             Audit genEdAudit = auditManager.getAudit(runConfig.getGenEdProgram());
@@ -118,12 +119,7 @@ public class AuditApiController implements AuditsApi {
             auditRunner.runAudit();
 
             List<SemConfig> result = auditRunner.getResult();
-            if (result == null || result.isEmpty()) {
-                return ResponseEntity.ok(new UnsolvableError().message("No valid configurations found."));
-            }
-            else {
-                return ResponseEntity.ok(result);
-            }
+            return ResponseEntity.ok((AuditsAuditRunPost200Response)(result == null ? new UnsolvableError().message("No valid configurations found.") : result));
         } catch (MissingItemException e) {
             System.err.println("Missing audit error in modelsModelRunPost: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
