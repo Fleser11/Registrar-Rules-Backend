@@ -30,7 +30,7 @@ public class AuditRunner {
     private AlloyRunner alloyRunner = null;
     private SpecCreator specCreator = null;
 
-    private String alloySpec = null;
+    private boolean noViableState = false;
     private List<SemConfig> result = null;
 
     public AuditRunner(Audit primaryAudit, Audit genEdAudit, RunConfig config, DBService db) {
@@ -42,6 +42,7 @@ public class AuditRunner {
         String alloySpec = specCreator.getSpecString();
         AlloyResult alloyResult = alloyRunner.runAlloySpec(alloySpec);
         if (alloyResult instanceof AlloyFailedResult) {
+            noViableState = true;
             return;
         }
         else if (alloyResult instanceof AlloySuccessfulResult) {
@@ -50,7 +51,7 @@ public class AuditRunner {
     }
     
     public List<SemConfig> getResult() {
-        if (result == null) {
+        if (!noViableState && result == null) {
             throw new IllegalStateException("runAudit operation has not been performed yet.");
         }
         return result;

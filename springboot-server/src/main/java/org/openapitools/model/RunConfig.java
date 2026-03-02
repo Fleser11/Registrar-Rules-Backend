@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.openapitools.model.SemConfig;
+import org.openapitools.model.Pathway;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -22,13 +22,12 @@ import javax.annotation.Generated;
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-03T19:02:31.923576971-05:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-04T20:20:31.572986831-05:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class RunConfig {
 
   private String genEdProgram = null;
 
-  @Valid
-  private List<@Valid SemConfig> pathway = new ArrayList<>();
+  private Pathway pathway;
 
   @Valid
   private List<String> transferCourses = new ArrayList<>();
@@ -53,16 +52,8 @@ public class RunConfig {
     this.genEdProgram = genEdProgram;
   }
 
-  public RunConfig pathway(List<@Valid SemConfig> pathway) {
+  public RunConfig pathway(Pathway pathway) {
     this.pathway = pathway;
-    return this;
-  }
-
-  public RunConfig addPathwayItem(SemConfig pathwayItem) {
-    if (this.pathway == null) {
-      this.pathway = new ArrayList<>();
-    }
-    this.pathway.add(pathwayItem);
     return this;
   }
 
@@ -70,14 +61,14 @@ public class RunConfig {
    * Get pathway
    * @return pathway
   */
-  @Valid @Size(min = 6, max = 9) 
+  @Valid 
   @Schema(name = "pathway", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("pathway")
-  public List<@Valid SemConfig> getPathway() {
+  public Pathway getPathway() {
     return pathway;
   }
 
-  public void setPathway(List<@Valid SemConfig> pathway) {
+  public void setPathway(Pathway pathway) {
     this.pathway = pathway;
   }
 

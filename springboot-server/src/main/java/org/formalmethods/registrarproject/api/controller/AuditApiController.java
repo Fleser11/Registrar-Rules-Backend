@@ -17,6 +17,7 @@ import org.openapitools.model.RunConfig;
 import org.openapitools.model.SemConfig;
 import org.openapitools.model.Audit;
 import org.openapitools.model.UnsolvableError;
+import org.openapitools.model.Pathway;
 
 
 import org.formalmethods.registrarproject.exception.InvalidInputException;
@@ -119,7 +120,7 @@ public class AuditApiController implements AuditsApi {
             auditRunner.runAudit();
 
             List<SemConfig> result = auditRunner.getResult();
-            return ResponseEntity.ok((AuditsAuditRunPost200Response)(result == null ? new UnsolvableError().message("No valid configurations found.") : result));
+            return ResponseEntity.ok((AuditsAuditRunPost200Response)(result == null ? new UnsolvableError().message("No valid configurations found.") : new Pathway().semesters(result)));
         } catch (MissingItemException e) {
             System.err.println("Missing audit error in modelsModelRunPost: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

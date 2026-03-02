@@ -11,10 +11,12 @@ src/main/java/org/openapitools/configuration/HomeController.java
 src/main/java/org/openapitools/configuration/SpringDocConfiguration.java
 src/main/java/org/openapitools/model/Audit.java
 src/main/java/org/openapitools/model/AuditInfo.java
+src/main/java/org/openapitools/model/AuditsAuditRunPost200Response.java
 src/main/java/org/openapitools/model/Course.java
 src/main/java/org/openapitools/model/InternalServerError.java
 src/main/java/org/openapitools/model/InvalidInputError.java
 src/main/java/org/openapitools/model/MissingItemError.java
+src/main/java/org/openapitools/model/Pathway.java
 src/main/java/org/openapitools/model/RunConfig.java
 src/main/java/org/openapitools/model/SemConfig.java
 src/main/java/org/openapitools/model/SubAudit.java

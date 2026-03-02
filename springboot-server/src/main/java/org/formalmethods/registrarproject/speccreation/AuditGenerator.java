@@ -25,7 +25,7 @@ public class AuditGenerator {
         }
 
         fact{
-            (no semCourses.prereqs)
+            (all p: semCourses.prereqs | p in transferCourses)
             and (always Course' = Course)
             and (always(
                 semester

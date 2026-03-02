@@ -22,7 +22,7 @@ public class RunConfigGenerator {
     public String getRunConfigString() {
         StringBuilder sb = new StringBuilder("fact {\n");
 
-        List<SemConfig> pathway = runConfig.getPathway();
+        List<SemConfig> pathway = runConfig.getPathway().getSemesters();
 
         for (int i = 0; i < pathway.size(); i++) {
             //Add courses for the semester if there are any
@@ -53,8 +53,10 @@ public class RunConfigGenerator {
 
         //Creates transfer course set
         if(runConfig.getTransferCourses() != null && runConfig.getTransferCourses().size() > 0){
+            
+            List<String> transferCourseList = getSemInstances(runConfig.getTransferCourses());
             sb.append("transferCourses = (");
-            sb.append(String.join(" + ", getSemInstances(runConfig.getTransferCourses())));
+            sb.append(String.join(" + ", transferCourseList));
             sb.append(")\n");
         }
         else{
@@ -70,12 +72,18 @@ public class RunConfigGenerator {
         List<String> instances = new LinkedList<>();
         for (int i = 0; i < courses.size(); i++) {
             String course = courses.get(i);
-            if (course.contains("abstract_")) {
-                instances.add(this.instances.getInstance(course));
-            } else {
-                instances.add(course);
-            }
+            instances.add(getCourseInstanceString(course));
         }
         return instances;
+    }
+
+    private String getCourseInstanceString(String courseName){
+        if (courseName.contains("abstract_")){
+            return this.instances.getInstance(courseName);
+        }
+        else {
+            return courseName;
+        }
+
     }
 }

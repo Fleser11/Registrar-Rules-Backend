@@ -6,11 +6,11 @@
 package org.openapitools.api;
 
 import org.openapitools.model.Audit;
+import org.openapitools.model.AuditsAuditRunPost200Response;
 import org.openapitools.model.InternalServerError;
 import org.openapitools.model.InvalidInputError;
 import org.openapitools.model.MissingItemError;
 import org.openapitools.model.RunConfig;
-import org.openapitools.model.SemConfig;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-14T18:46:29.410457831-04:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-04T20:20:31.572986831-05:00[America/New_York]", comments = "Generator version: 7.6.0")
 @Validated
 @Tag(name = "audits", description = "the audits API")
 public interface AuditsApi {
@@ -127,7 +127,7 @@ public interface AuditsApi {
         summary = "Attempts to run the audit.",
         responses = {
             @ApiResponse(responseCode = "200", description = "A JSON array of user names", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SemConfig.class)))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = AuditsAuditRunPost200Response.class))
             }),
             @ApiResponse(responseCode = "400", description = "Bad Request - The request was invalid or cannot be served.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = InvalidInputError.class))
@@ -144,14 +144,14 @@ public interface AuditsApi {
         consumes = { "application/json" }
     )
     
-    default ResponseEntity<List<SemConfig>> auditsAuditRunPost(
+    default ResponseEntity<AuditsAuditRunPost200Response> auditsAuditRunPost(
         @Parameter(name = "audit", description = "The name of the audit to run.", required = true, in = ParameterIn.PATH) @PathVariable("audit") String audit,
         @Parameter(name = "RunConfig", description = "", required = true) @Valid @RequestBody RunConfig runConfig
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"courses\" : [ \"courses\", \"courses\", \"courses\", \"courses\", \"courses\" ], \"numCourses\" : 0 }, { \"courses\" : [ \"courses\", \"courses\", \"courses\", \"courses\", \"courses\" ], \"numCourses\" : 0 }, { \"courses\" : [ \"courses\", \"courses\", \"courses\", \"courses\", \"courses\" ], \"numCourses\" : 0 }, { \"courses\" : [ \"courses\", \"courses\", \"courses\", \"courses\", \"courses\" ], \"numCourses\" : 0 }, { \"courses\" : [ \"courses\", \"courses\", \"courses\", \"courses\", \"courses\" ], \"numCourses\" : 0 } ]";
+                    String exampleString = "{ \"message\" : \"message\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

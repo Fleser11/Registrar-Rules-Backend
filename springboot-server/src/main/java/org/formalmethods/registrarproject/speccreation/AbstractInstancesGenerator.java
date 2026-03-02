@@ -67,11 +67,18 @@ public class AbstractInstancesGenerator {
     }
 
     private void parseAbstractInstances(RunConfig runConfig) {
-        for (var semConfig : runConfig.getPathway()) {
+        for (var semConfig : runConfig.getPathway().getSemesters()) {
             for (var course : semConfig.getCourses()) {
                 if (course.contains("abstract_")) {
                     abstractInstances.addAbstractInstance(course);
                 }
+            }
+        }
+
+        for (String course: runConfig.getTransferCourses()){
+            System.out.println("Transfer course" + course);
+            if(course.contains("abstract_")){
+                abstractInstances.addAbstractInstance(course);
             }
         }
     }

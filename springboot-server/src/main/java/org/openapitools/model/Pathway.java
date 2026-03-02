@@ -4,10 +4,11 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.openapitools.model.SemConfig;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -19,32 +20,41 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * UnsolvableError
+ * Pathway
  */
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-04T20:20:31.572986831-05:00[America/New_York]", comments = "Generator version: 7.6.0")
-public class UnsolvableError implements AuditsAuditRunPost200Response {
+public class Pathway implements AuditsAuditRunPost200Response {
 
-  private String message;
+  @Valid
+  private List<@Valid SemConfig> semesters = new ArrayList<>();
 
-  public UnsolvableError message(String message) {
-    this.message = message;
+  public Pathway semesters(List<@Valid SemConfig> semesters) {
+    this.semesters = semesters;
+    return this;
+  }
+
+  public Pathway addSemestersItem(SemConfig semestersItem) {
+    if (this.semesters == null) {
+      this.semesters = new ArrayList<>();
+    }
+    this.semesters.add(semestersItem);
     return this;
   }
 
   /**
-   * Get message
-   * @return message
+   * Get semesters
+   * @return semesters
   */
-  
-  @Schema(name = "message", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("message")
-  public String getMessage() {
-    return message;
+  @Valid @Size(min = 6, max = 9) 
+  @Schema(name = "semesters", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("semesters")
+  public List<@Valid SemConfig> getSemesters() {
+    return semesters;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setSemesters(List<@Valid SemConfig> semesters) {
+    this.semesters = semesters;
   }
 
   @Override
@@ -55,20 +65,20 @@ public class UnsolvableError implements AuditsAuditRunPost200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UnsolvableError unsolvableError = (UnsolvableError) o;
-    return Objects.equals(this.message, unsolvableError.message);
+    Pathway pathway = (Pathway) o;
+    return Objects.equals(this.semesters, pathway.semesters);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message);
+    return Objects.hash(semesters);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UnsolvableError {\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("class Pathway {\n");
+    sb.append("    semesters: ").append(toIndentedString(semesters)).append("\n");
     sb.append("}");
     return sb.toString();
   }

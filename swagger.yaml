@@ -114,8 +114,8 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  -$ref: '#/components/schemas/UnsolvableError'
-                  -$ref: '#/components/schemas/Pathway'
+                  - $ref: '#/components/schemas/UnsolvableError'
+                  - $ref: '#/components/schemas/Pathway'
         "400":
           description: Bad Request - The request was invalid or cannot be served.
           content:
@@ -235,11 +235,14 @@ components:
           items:
             type: string
     Pathway:
-      type: array
-      minItems: 6
-      maxItems: 9
-      items:
-        $ref: '#/components/schemas/SemConfig'
+      type: object
+      properties:
+        semesters:
+          type: array
+          minItems: 6
+          maxItems: 9
+          items:
+            $ref: '#/components/schemas/SemConfig'
     Course:
       type: object
       properties:
