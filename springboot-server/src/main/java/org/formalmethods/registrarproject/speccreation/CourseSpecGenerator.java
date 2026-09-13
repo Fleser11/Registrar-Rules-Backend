@@ -22,11 +22,10 @@ class CourseSpecGenerator {
         sig transferCourses in Course{}
 
         var sig semCourses in Course{}{
-        #semCourses <= 6
         }
 
-        var sig takenCourses in semCourses{}
-        var sig passedCourses in takenCourses{}
+
+        var sig passedCourses in Course{}
 
         sig Course1000 in Course{}
         sig Course2000 in Course{}

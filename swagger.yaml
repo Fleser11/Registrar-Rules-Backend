@@ -240,7 +240,7 @@ components:
         semesters:
           type: array
           minItems: 6
-          maxItems: 9
+          maxItems: 10
           items:
             $ref: '#/components/schemas/SemConfig'
     Course:
@@ -273,6 +273,17 @@ components:
           type: array
           items:
             type: string
+        rules:
+          $ref: '#/components/schemas/Rules'
+    Rules:
+      type: object
+      properties:
+        maxSemCourses:
+          type: integer
+        minSemCourses:
+          type: integer
+        minimization:
+          type: boolean
     UnsolvableError:
       type: object
       properties:

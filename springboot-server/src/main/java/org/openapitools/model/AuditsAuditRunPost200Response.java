@@ -24,6 +24,6 @@ import java.util.*;
 import javax.annotation.Generated;
 
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-04T20:20:31.572986831-05:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-03T14:43:55.413193228-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public interface AuditsAuditRunPost200Response {
 }

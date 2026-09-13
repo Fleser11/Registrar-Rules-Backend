@@ -2,13 +2,35 @@ package org.formalmethods.registrarproject.speccreation;
 
 import java.util.ArrayList;
 
+import org.openapitools.model.RunConfig;
+import org.openapitools.model.Rules;
+
 public class CommandGenerator {
 
-    public String createCommandString(ArrayList<String> modelSubAudits) {
-        String header = "pred complete {\n";
+    public String createCommandString(ArrayList<String> modelSubAudits, RunConfig runConfig) {
+
+        int numSteps = runConfig.getPathway().getSemesters().size();
+
+        Rules rules = runConfig.getRules();
+
+        boolean minimization = false;
+        if (rules != null){
+            Boolean minimizationValue = rules.getMinimization();
+            if (minimizationValue != null) {
+                minimization = minimizationValue;
+            }
+            else {
+                System.out.print("WARNING: no minimization specified, defaulting to false");
+            }
+        }
+        else {
+            System.out.print("WARNING: no rules defined with minimization, defaulting to false");
+        }
+
+        String header = "pred complete[p: set Course] {\n";
         StringBuilder bodyBuilder = new StringBuilder();
-        
-        String onceExistingTemplate = "(all c: %s | (once c in passedCourses or once c in transferCourses))\n";
+
+        String onceExistingTemplate = "(all c: %s | (c in p))\n";
 
         for (int i = 0; i < modelSubAudits.size(); i++) {
             if (i > 0)
@@ -17,9 +39,17 @@ public class CommandGenerator {
         }
         bodyBuilder.append(String.format("and (disj[%s])\n}\n", String.join(",", modelSubAudits)));
 
-        //This should essentially take the parameters and specify that the courses 
-        String runLine = "run {eventually complete} for 74 Course, exactly 8 steps, 5 int\n";
+        //This should essentially take the parameters and specify that the courses
+
+        String runLine = String.format(
+            """
+                run {eventually (complete[passedCourses + transferCourses] 
+                %s  
+                )} for 74 Course, exactly %d steps, 5 int
+                """, 
+                minimization ? "and (no p: passedCourses | complete[(passedCourses-p) + transferCourses])" : "", 
+                numSteps);
         return header + bodyBuilder.toString() + runLine;
-    } 
+    }
 
 }

@@ -11,6 +11,7 @@ import edu.mit.csail.sdg.parser.CompUtil;
 import edu.mit.csail.sdg.translator.A4Options;
 import edu.mit.csail.sdg.translator.A4Solution;
 import edu.mit.csail.sdg.translator.TranslateAlloyToKodkod;
+import edu.mit.csail.sdg.ast.Expr;
 import kodkod.engine.config.Options;
 
 import edu.mit.csail.sdg.ast.Sig;
@@ -35,7 +36,6 @@ public class AlloyRunner {
     private A4Options options = new A4Options();
 
     public static interface AlloyResult{
-
     }
 
     /**
@@ -44,13 +44,20 @@ public class AlloyRunner {
     public static class AlloySuccessfulResult implements AlloyResult{
         JSONObject jsonResult;
         String XMLResult;
-        public AlloySuccessfulResult(A4Solution ans) {
+        A4Solution ans;
+        CompModule world;
+        public AlloySuccessfulResult(
+            A4Solution ans,
+            CompModule world
+        ) {
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
             // System.out.println(ans.debugExtractKInstance().toString());
             ans.writeXML(printWriter, new ArrayList<Func>(), null);
             this.jsonResult = XML.toJSONObject(stringWriter.toString());
             this.XMLResult = stringWriter.toString();
+            this.ans = ans;
+            this.world = world;
         }
 
         public JSONObject getJsonResult() {
@@ -59,6 +66,11 @@ public class AlloyRunner {
 
         public String getXMLResult() {
             return XMLResult;
+        }
+
+        public String eval(String expression) {
+            Expr exr = CompUtil.parseOneExpression_fromString(world, expression);
+            return ans.eval(exr).toString();
         }
     }
 
@@ -91,7 +103,7 @@ public class AlloyRunner {
         AlloyResult result;
         try{
             A4Solution ans = TranslateAlloyToKodkod.execute_command(A4Reporter.NOP, world.getAllSigs(), cmd, options); 
-            result = new AlloySuccessfulResult(ans);
+            result = new AlloySuccessfulResult(ans, world);
 
         }
         catch(Exception e){

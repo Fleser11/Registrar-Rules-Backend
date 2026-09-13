@@ -29,6 +29,7 @@ public class AuditRunner {
 
     private AlloyRunner alloyRunner = null;
     private SpecCreator specCreator = null;
+    private static AlloyRunner.AlloyResult lastResult = null;
 
     private boolean noViableState = false;
     private List<SemConfig> result = null;
@@ -41,6 +42,7 @@ public class AuditRunner {
     public void runAudit() {
         String alloySpec = specCreator.getSpecString();
         AlloyResult alloyResult = alloyRunner.runAlloySpec(alloySpec);
+        lastResult = alloyResult;
         if (alloyResult instanceof AlloyFailedResult) {
             noViableState = true;
             return;
@@ -109,6 +111,17 @@ public class AuditRunner {
             return matcher.group(1) != null ? matcher.group(1) + matcher.group(2) : matcher.group(2);
         }
         return courseName;
+    }
+
+    public static void evaluateLastResult() {
+        if (lastResult == null) {
+            throw new IllegalStateException("No Alloy result to evaluate.");
+        }
+        if (lastResult instanceof AlloyFailedResult) {
+        } else if (lastResult instanceof AlloySuccessfulResult) {
+            AlloySuccessfulResult successfulResult = (AlloySuccessfulResult) lastResult;
+            successfulResult.eval("CS1000 in semCourses");
+        }
     }
 
 }

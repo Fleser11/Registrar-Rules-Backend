@@ -18,15 +18,20 @@ public class AuditGenerator {
 
         pred doNothing{
             always semCourses' = semCourses
+            and always passedCourses' = passedCourses
+            and always transferCourses' = transferCourses
         }
 
         pred semester {
-            all c: semCourses' | prereqsMet[c]
+            (all c: semCourses' | prereqsMet[c])
+            and (no c: semCourses' | once c in passedCourses)
         }
 
         fact{
             (all p: semCourses.prereqs | p in transferCourses)
+            and (passedCourses = semCourses)
             and (always Course' = Course)
+            and (always passedCourses' = passedCourses + semCourses')
             and (always(
                 semester
                 or
@@ -59,14 +64,32 @@ public class AuditGenerator {
             specBuilder.append("sig " + formatSubAuditName(audit, subAudit) + " in Course {}\nfact {\n");
 
             if (subAudit.getCardinality().equals("ALL")){
+
                 ArrayList<String> courses = (ArrayList<String>) subAudit.getCourses();
+
+                ArrayList<String> allCoursesPrimitives = new ArrayList<>();
+                Pattern coursePattern = Pattern.compile("([a-zA-Z][a-zA-Z]+[0-9]{4})(\\(C\\))?");
+                for (String course: courses){
+                    if (course.startsWith("abstract_")){
+                        allCoursesPrimitives.add(formatCourseName(course));
+                    }
+                    else{
+                        Matcher matcher = coursePattern.matcher(course);
+                        while(matcher.find()){
+                            System.out.print(course);
+                            allCoursesPrimitives.add(matcher.group(1));
+                        }
+                    }
+                }
+                String inCourses = formatSubAuditName(audit, subAudit) + " in (" + String.join(" + ", allCoursesPrimitives) + ")\n";
+                specBuilder.append(inCourses);
+
                 
                 for(int i = 0; i < subAudit.getCourses().size(); i++){
                     if(courses.get(i).startsWith("abstract_")){
-                        specBuilder.append((i > 0 ? "and ":"") + "(some c: " + formatCourseName(courses.get(i)) + " | c in " + formatSubAuditName(audit, subAudit) + ")\n");
+                        specBuilder.append("and (one c: " + formatSubAuditName(audit, subAudit) + " | c in " + formatCourseName(courses.get(i)) + ")\n");
                     }
                     else{
-                        Pattern coursePattern = Pattern.compile("([a-zA-Z][a-zA-Z]+[0-9]{4})(\\(C\\))?");
                         Matcher matcher = coursePattern.matcher(courses.get(i));
                         String inSubAudit = matcher.replaceAll("($1 in " + formatSubAuditName(audit, subAudit) + ")");
                         specBuilder.append((i > 0 ? "and ":"") + "("+ inSubAudit + ")\n");

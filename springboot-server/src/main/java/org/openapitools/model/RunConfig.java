@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.openapitools.model.Pathway;
+import org.openapitools.model.Rules;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -22,7 +23,7 @@ import javax.annotation.Generated;
  * RunConfig
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-04T20:20:31.572986831-05:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-03T14:43:55.413193228-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class RunConfig {
 
   private String genEdProgram = null;
@@ -31,6 +32,8 @@ public class RunConfig {
 
   @Valid
   private List<String> transferCourses = new ArrayList<>();
+
+  private Rules rules;
 
   public RunConfig genEdProgram(String genEdProgram) {
     this.genEdProgram = genEdProgram;
@@ -100,6 +103,26 @@ public class RunConfig {
     this.transferCourses = transferCourses;
   }
 
+  public RunConfig rules(Rules rules) {
+    this.rules = rules;
+    return this;
+  }
+
+  /**
+   * Get rules
+   * @return rules
+  */
+  @Valid 
+  @Schema(name = "rules", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("rules")
+  public Rules getRules() {
+    return rules;
+  }
+
+  public void setRules(Rules rules) {
+    this.rules = rules;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -111,12 +134,13 @@ public class RunConfig {
     RunConfig runConfig = (RunConfig) o;
     return Objects.equals(this.genEdProgram, runConfig.genEdProgram) &&
         Objects.equals(this.pathway, runConfig.pathway) &&
-        Objects.equals(this.transferCourses, runConfig.transferCourses);
+        Objects.equals(this.transferCourses, runConfig.transferCourses) &&
+        Objects.equals(this.rules, runConfig.rules);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(genEdProgram, pathway, transferCourses);
+    return Objects.hash(genEdProgram, pathway, transferCourses, rules);
   }
 
   @Override
@@ -126,6 +150,7 @@ public class RunConfig {
     sb.append("    genEdProgram: ").append(toIndentedString(genEdProgram)).append("\n");
     sb.append("    pathway: ").append(toIndentedString(pathway)).append("\n");
     sb.append("    transferCourses: ").append(toIndentedString(transferCourses)).append("\n");
+    sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
     sb.append("}");
     return sb.toString();
   }

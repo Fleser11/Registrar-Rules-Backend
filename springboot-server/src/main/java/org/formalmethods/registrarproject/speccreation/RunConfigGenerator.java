@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import org.openapitools.model.Audit;
 import org.openapitools.model.RunConfig;
 import org.openapitools.model.SemConfig;
+import org.openapitools.model.Rules;
 
 public class RunConfigGenerator {
 
@@ -19,6 +20,10 @@ public class RunConfigGenerator {
         this.instances = instances;
     }
 
+    /**
+     * Generates the Alloy spec string for the RunConfig object.
+     * @return String representation of the RunConfig in Alloy spec format.
+     */
     public String getRunConfigString() {
         StringBuilder sb = new StringBuilder("fact {\n");
 
@@ -42,12 +47,6 @@ public class RunConfigGenerator {
                     sb.append("'");
                 }
                 sb.append(" <= " + pathway.get(i).getNumCourses() + "\n");
-            } else {
-                sb.append("#semCourses");
-                for (int j = 0; j < i; j++) {
-                    sb.append("'");
-                }
-                sb.append(" <= 6 \n");
             }
         }
 
@@ -64,6 +63,36 @@ public class RunConfigGenerator {
         }
 
         sb.append("\n}\n");
+
+        Rules rules = runConfig.getRules();
+
+        int minCourses = 4;
+        int maxCourses = 6;
+
+        if (rules != null){
+            if (rules.getMinSemCourses() != null) {
+                minCourses = rules.getMinSemCourses();
+            } else {
+                System.out.println("WARNING: No minSemCourses specified in rules. defaulting to 4");
+            }
+            if (rules.getMaxSemCourses() != null) {
+                maxCourses = rules.getMaxSemCourses();
+            } else {
+                System.out.println("WARNING: No maxSemCourses specified in rules. defaulting to 6");
+            }
+        }
+        else{
+            System.out.println("WARNING: No rules applied for sem courses. defaulting to min 4, max 6");
+        }
+
+        String numCourseFactString = String.format("fact{\n"
+                +"always (#semCourses >= %d)\n"
+                +"and always (#semCourses <= %d)\n"
+                +"}", minCourses, maxCourses);
+        sb.append(numCourseFactString);
+
+
+
         return sb.toString();
 
     }

@@ -23,7 +23,7 @@ import javax.annotation.Generated;
  * Pathway
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-04T20:20:31.572986831-05:00[America/New_York]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-03T14:43:55.413193228-04:00[America/New_York]", comments = "Generator version: 7.6.0")
 public class Pathway implements AuditsAuditRunPost200Response {
 
   @Valid
@@ -46,7 +46,7 @@ public class Pathway implements AuditsAuditRunPost200Response {
    * Get semesters
    * @return semesters
   */
-  @Valid @Size(min = 6, max = 9) 
+  @Valid @Size(min = 6, max = 10) 
   @Schema(name = "semesters", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("semesters")
   public List<@Valid SemConfig> getSemesters() {
