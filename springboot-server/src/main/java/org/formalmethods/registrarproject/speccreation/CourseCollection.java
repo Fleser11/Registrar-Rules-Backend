@@ -6,6 +6,16 @@ import java.util.regex.Matcher;
 import java.util.Map;
 import java.util.HashMap;
 
+import com.bpodgursky.jbool_expressions.Expression;
+import com.bpodgursky.jbool_expressions.parsers.ExprParser;
+import com.bpodgursky.jbool_expressions.Variable;
+import com.bpodgursky.jbool_expressions.Or;
+import com.bpodgursky.jbool_expressions.And;
+
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.List;
+
 class CourseCollection {
 
     private Map<String, Course> courseList = new HashMap<>();
@@ -54,18 +64,120 @@ class CourseCollection {
             return prereqs;
         }
 
+        private static class CourseRequirements{
+
+            String prereqsNames[][] = {
+                {"Or1", "And2", "Or3"},{"And1", "Or2", "And3"}
+            };
+
+            String baseCourse;
+            int identifier;
+            int depth;
+            int isOr;
+            List<String> courseReqs;
+
+            public CourseRequirements(String baseCourse, List<String> courseReqs, int[] identifier, int depth, int isOr){
+                this.baseCourse = baseCourse;
+                this.identifier = identifier[0];
+                this.depth = depth;
+                this.isOr = isOr;
+                this.courseReqs = courseReqs;
+
+            }
+            
+            public String getCourseAlloy(){
+                StringBuilder sb = new StringBuilder(
+                    "one sig "+ getName() + " extends " + prereqsNames[isOr][depth] + "{}{\n"
+                );
+
+                sb.append("sub" + prereqsNames[isOr][depth] + " = " + String.join(" + ", courseReqs));
+                sb.append("\n}\n");
+                
+
+                return sb.toString();
+            }
+
+            public String getName(){
+                return baseCourse + "_REQ_" + identifier + prereqsNames[isOr][depth]; 
+            }
+        }
+
+        private String getSubReq(Expression<String> expr,
+            String baseCourse,
+            int[] identifier,
+            int depth,
+            int isOr,
+            StringBuilder sb
+        ){
+            if (expr instanceof Variable){
+                return ((Variable<String>)expr).getValue();
+            }
+            else{
+                List<String> subReqs = new LinkedList<String>();
+                for (Expression<String> child: expr.getChildren()){
+                    String cr = getSubReq(
+                        child,
+                        baseCourse,
+                        identifier,
+                        depth + 1,
+                        isOr,
+                        sb
+                    );
+                    if (cr.equals("ALEKS") || cr.equals("CEEB")){
+                        continue;
+                    }
+                    else{
+                        subReqs.add(cr);
+                        identifier[0]++;
+                    }
+                }
+            
+                CourseRequirements cr = new CourseRequirements(
+                    baseCourse,
+                    subReqs,
+                    identifier,
+                    depth,
+                    isOr
+                    );
+                sb.append(cr.getCourseAlloy());
+                return cr.getName();
+            }
+
+        }
+
         public String getCourseAlloy(){
             String header = "one sig " + dept + num + " extends Course {}{\n";
             String body = "";
 
-            if (!prereqs.contains("ALEKS") && !prereqs.contains("CEEB")){
+            String courseName = dept+num;
 
-                Pattern preReqPattern = Pattern.compile("([A-Za-z][A-Za-z]+[0-9]{4})(\\(C\\))?");
-                body = preReqPattern.matcher(prereqs).replaceAll("$1 in prereqs") + "\n}\n";
+            StringBuilder sb = new StringBuilder("");
+
+            //Parse the prereqs into a boolean expression and map them back to requirements
+            if (!prereqs.equals("") && !prereqs.trim().contains("ALEKS") && !prereqs.trim().contains("CEEB")) {
+                int identifierCount = 0;
+                int depth = 0;
+                int isOr = 1;
+
+                String compatiblePrereqs = prereqs.replace("or", "|").replace("and", "&").replace("(C)", "");
+                System.out.println("Prerequisite for " + courseName + " " + prereqs);
+                Expression<String> expr = ExprParser.parse(compatiblePrereqs);
+                if (expr.getClass() == Or.class){
+                    isOr = 0;
+                }
+                else if (expr.getClass() == Variable.class){
+                    expr = And.of(expr);
+                }
+
+                int[] identifier = {0};
+                String req = (String)getSubReq(expr, courseName, identifier, depth, isOr, sb);
+                body = "req = " + req + "\n}\n";
             } else {
+                System.out.println("Prerequisite skipped is for: " + courseName + " " + prereqs);
                 body = "}\n";
+
             }
-            return header + body;
+            return sb.toString() + header + body;
         }
     }
 

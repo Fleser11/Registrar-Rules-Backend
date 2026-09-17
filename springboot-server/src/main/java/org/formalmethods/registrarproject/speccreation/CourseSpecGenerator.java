@@ -16,7 +16,7 @@ class CourseSpecGenerator {
 
     private String COURSE_HEADER = """
         abstract sig Course {
-            prereqs: set Course
+            req: lone (Or1 + And1)
         }
 
         sig transferCourses in Course{}
@@ -35,6 +35,30 @@ class CourseSpecGenerator {
             disj[Course1000, Course2000, Course3000, Course4000]
             and (all c: semCourses | c in (Course1000 + Course2000 + Course3000 + Course4000))
         }
+
+        abstract sig Or1{
+            subOr1: some (And2 + Course)
+        }{}
+
+        abstract sig And2{
+            subAnd2: some (Or3 + Course)
+        }{}
+
+        abstract sig Or3{
+            subOr3: some Course
+        }{}
+
+        abstract sig And1{
+            subAnd1: some (Or2 + Course)
+        }{}
+
+        abstract sig Or2{
+            subOr2: some(And3 + Course)
+        }{}
+
+        abstract sig And3{
+            subAnd3: some Course
+        }{}
         """;
 
 

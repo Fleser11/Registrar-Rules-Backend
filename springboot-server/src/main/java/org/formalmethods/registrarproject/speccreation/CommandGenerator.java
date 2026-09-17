@@ -45,9 +45,14 @@ public class CommandGenerator {
             """
                 run {eventually (complete[passedCourses + transferCourses] 
                 %s  
-                )} for 74 Course, exactly %d steps, 5 int
+                )} for 74 Course, 9 Or1, 28 And1, 7 Or2, 0 And2, 0 Or3, 0 And3, exactly %d steps, 5 int
                 """, 
-                minimization ? "and (no p: passedCourses | complete[(passedCourses-p) + transferCourses])" : "", 
+                minimization ? " and ( \n"
+                        + "no p: passedCourses | (\n"
+                        + "(complete[(passedCourses-p) + transferCourses])\n"
+                        + "and \n" 
+                        + "(all p2: passedCourses | prereqsMet[p2, passedCourses-p])\n"
+                    +")\n)\n" : "", 
                 numSteps);
         return header + bodyBuilder.toString() + runLine;
     }

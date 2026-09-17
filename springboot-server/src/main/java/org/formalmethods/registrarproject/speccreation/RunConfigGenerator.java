@@ -48,6 +48,18 @@ public class RunConfigGenerator {
                 }
                 sb.append(" <= " + pathway.get(i).getNumCourses() + "\n");
             }
+
+            if (i != 0){
+                sb.append("semCourses");
+                for(int j = 0; j < i; j++){
+                    sb.append("'");
+                }
+                sb.append(" != semCourses");
+                for(int j = 0; j < i-1; j++){
+                    sb.append("'");
+                }
+            }
+            
         }
 
         //Creates transfer course set

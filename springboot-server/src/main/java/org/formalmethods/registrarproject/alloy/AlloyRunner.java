@@ -84,8 +84,8 @@ public class AlloyRunner {
         options.inferPartialInstance = true;
         options.symmetry = 20;
         options.noOverflow = true;
-        // options.solver = A4Options.SatSolver.SAT4j;
-        // options.skolemDepth = 3;
+        // options.decompose_mode = ;
+        options.skolemDepth = 4;
         // options.noOverflow = false;
     }
 

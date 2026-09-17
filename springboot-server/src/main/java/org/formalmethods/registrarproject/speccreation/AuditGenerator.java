@@ -12,9 +12,41 @@ import java.util.regex.Pattern;
 public class AuditGenerator {
 
     static final String AUDIT_HEADER = """
-        pred prereqsMet[c: Course]{
-        all p: c.prereqs | (once p in passedCourses or p in transferCourses)
+        
+        pred prereqsMet[c: Course, pc: set Course]{
+            not (no c.req) implies (
+                c.req in And1 implies (
+                    all and1Req: c.req.subAnd1 | (
+                        and1Req in Course implies (once and1Req in pc or and1Req in transferCourses)
+                            else (some or2Req: and1Req.subOr2 | (
+                                or2Req in Course implies (once or2Req in pc or or2Req in transferCourses)
+                                    else (all and3Req: or2Req.subAnd3 | (
+                                        once and3Req in pc or and3Req in transferCourses
+                                        )
+                                    )
+                                )
+                            )
+
+                    )
+                )
+                else (
+                    some or1Req: c.req.subOr1 | (
+                        or1Req in Course implies (once or1Req in pc or or1Req in transferCourses)
+                            else (all and2Req: or1Req.subAnd2 | (
+                                and2Req in Course implies (once and2Req in pc or and2Req in transferCourses)
+                                    else (some or3Req: and2Req.subOr3 | (
+                                        once or3Req in pc or or3Req in transferCourses
+                                        )
+                                    )
+                                )
+                            )
+
+                    )
+                )
+            )
+        //all p: c.prereqs | (once p in passedCourses or p in transferCourses)
         }
+
 
         pred doNothing{
             always semCourses' = semCourses
@@ -23,12 +55,12 @@ public class AuditGenerator {
         }
 
         pred semester {
-            (all c: semCourses' | prereqsMet[c])
+            (all c: semCourses' | prereqsMet[c, passedCourses])
             and (no c: semCourses' | once c in passedCourses)
         }
 
         fact{
-            (all p: semCourses.prereqs | p in transferCourses)
+            (no semCourses.req)
             and (passedCourses = semCourses)
             and (always Course' = Course)
             and (always passedCourses' = passedCourses + semCourses')
@@ -101,11 +133,6 @@ public class AuditGenerator {
 
                 String inCourses = formatSubAuditName(audit, subAudit) + " in (" + String.join(" + ", subAudit.getCourses()) + ")\n";
 
-                // Pattern abstractPattern = Pattern.compile("(abstract_[a-zA-Z0-9]*)");
-                // Matcher matcher = abstractPattern.matcher(subAudit.getCourses().toString());
-
-                // inCourses = matcher.replaceAll(audit.getInfo().getCode() + "_$1");
-
                 specBuilder.append(inCourses);
             }
             specBuilder.append("}\n");
@@ -164,8 +191,6 @@ public class AuditGenerator {
      * @return
      */
     private String formatCourseName(String course) {
-        // String auditCode = audit.getInfo().getCode();
-        // return (auditCode + "_" + course);
         return course;
     }
 
