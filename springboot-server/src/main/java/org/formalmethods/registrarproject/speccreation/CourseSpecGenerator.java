@@ -16,8 +16,11 @@ class CourseSpecGenerator {
 
     private String COURSE_HEADER = """
         abstract sig Course {
-            prereqs: set Course
+            prereqs: set Course,
+            coreqs: set Course
         }
+
+        
 
         sig transferCourses in Course{}
 
@@ -65,7 +68,7 @@ class CourseSpecGenerator {
             }
             courseCollection.addCourse(baseCollection.getCourse(course));
         }
-
+        
         Course currentCourse = courseCollection.getCourse(course);
         Pattern coursePattern = Pattern.compile("([a-zA-Z][a-zA-Z]+)([0-9][0-9][0-9][0-9])");
         Matcher matcher = coursePattern.matcher(currentCourse.getPrereqs());

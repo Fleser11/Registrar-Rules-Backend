@@ -16,6 +16,10 @@ public class AuditGenerator {
         all p: c.prereqs | (once p in passedCourses or p in transferCourses)
         }
 
+        pred correqsMet[c: Course]{
+        all c: c.coreqs | (once c in passedCourses')
+        }
+
         pred doNothing{
             always semCourses' = semCourses
             and always passedCourses' = passedCourses
@@ -25,10 +29,12 @@ public class AuditGenerator {
         pred semester {
             (all c: semCourses' | prereqsMet[c])
             and (no c: semCourses' | once c in passedCourses)
+            and (all c: semCourses' | correqsMet[c])
         }
 
         fact{
             (all p: semCourses.prereqs | p in transferCourses)
+            and (all c: semCourses.coreqs | c in semCourses)
             and (passedCourses = semCourses)
             and (always Course' = Course)
             and (always passedCourses' = passedCourses + semCourses')

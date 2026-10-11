@@ -61,7 +61,16 @@ class CourseCollection {
             if (!prereqs.contains("ALEKS") && !prereqs.contains("CEEB")){
 
                 Pattern preReqPattern = Pattern.compile("([A-Za-z][A-Za-z]+[0-9]{4})(\\(C\\))?");
-                body = preReqPattern.matcher(prereqs).replaceAll("$1 in prereqs") + "\n}\n";
+
+                body = preReqPattern.matcher(prereqs).replaceAll(
+                    (mr) -> {
+                        if (mr.group(2) != null && mr.group(2).equals("(C)")) {
+                            return "(" + mr.group(1) + " in prereqs or " + mr.group(1) + " in coreqs)";
+                        } else {
+                            return mr.group(1) + " in prereqs";
+                        }
+                    }
+                ) + "\n}\n";
             } else {
                 body = "}\n";
             }
