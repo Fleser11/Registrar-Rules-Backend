@@ -10,6 +10,8 @@ import edu.mit.csail.sdg.parser.CompModule;
 import edu.mit.csail.sdg.parser.CompUtil;
 import edu.mit.csail.sdg.translator.A4Options;
 import edu.mit.csail.sdg.translator.A4Solution;
+import kodkod.engine.satlab.SATFactory;
+
 import edu.mit.csail.sdg.translator.TranslateAlloyToKodkod;
 import edu.mit.csail.sdg.ast.Expr;
 import kodkod.engine.config.Options;
@@ -24,6 +26,10 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.json.XML;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 
 public class AlloyRunner {
@@ -84,8 +90,11 @@ public class AlloyRunner {
         options.inferPartialInstance = true;
         options.symmetry = 20;
         options.noOverflow = true;
-        // options.solver = A4Options.SatSolver.SAT4j;
-        // options.skolemDepth = 3;
+        options.solver = SATFactory.find("glucose").orElse(SATFactory.DEFAULT);
+        System.out.print(options.solver);
+        // System.out.print("SOLVER" +options.solver);
+        options.skolemDepth = 4;
+        // options.maxseq=4;
         // options.noOverflow = false;
     }
 
@@ -95,7 +104,15 @@ public class AlloyRunner {
      * @return An AlloyResult containing the result of the execution.
      */
     public AlloyResult runAlloySpec(String alloySpec){
-        System.out.print(alloySpec);
+        // System.out.print(alloySpec);
+
+        try {
+            FileWriter myWriter = new FileWriter("alloySpec.txt");
+            myWriter.write(alloySpec);
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         CompModule world = CompUtil.parseEverything_fromString(A4Reporter.NOP, alloySpec);
         // System.out.println("All Commands" + world.getAllCommands().toString());
         Command cmd = world.getAllCommands().get(0);

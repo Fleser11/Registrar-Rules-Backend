@@ -7,7 +7,7 @@ import org.openapitools.model.Rules;
 
 public class CommandGenerator {
 
-    public String createCommandString(ArrayList<String> modelSubAudits, RunConfig runConfig) {
+    public String createCommandString(ArrayList<String> primaryAuditNames, ArrayList<String> genEdAuditNames, RunConfig runConfig) {
 
         int numSteps = runConfig.getPathway().getSemesters().size();
 
@@ -32,12 +32,20 @@ public class CommandGenerator {
 
         String onceExistingTemplate = "(all c: %s | (c in p))\n";
 
-        for (int i = 0; i < modelSubAudits.size(); i++) {
+
+
+        for (int i = 0; i < primaryAuditNames.size(); i++) {
             if (i > 0)
                 bodyBuilder.append("and ");
-            bodyBuilder.append(String.format(onceExistingTemplate, modelSubAudits.get(i)));
+            bodyBuilder.append(String.format(onceExistingTemplate, primaryAuditNames.get(i)));
         }
-        bodyBuilder.append(String.format("and (disj[%s])\n}\n", String.join(",", modelSubAudits)));
+        bodyBuilder.append(String.format("and (disj[%s])\n", String.join(",", primaryAuditNames)));
+        for (int i = 0; i < genEdAuditNames.size(); i++) {
+            bodyBuilder.append("and ");
+            bodyBuilder.append(String.format(onceExistingTemplate, genEdAuditNames.get(i)));
+        }
+        bodyBuilder.append(String.format("and (disj[%s])\n", String.join(",", genEdAuditNames)));
+        bodyBuilder.append(String.format("and #((%s) & (%s)) <= 5\n}\n", String.join("+", primaryAuditNames), String.join("+", genEdAuditNames)));
 
         //This should essentially take the parameters and specify that the courses
 

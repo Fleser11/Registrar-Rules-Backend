@@ -97,7 +97,7 @@ public class AuditGenerator {
                     }
                     else{
                         Matcher matcher = coursePattern.matcher(courses.get(i));
-                        String inSubAudit = matcher.replaceAll("($1 in " + formatSubAuditName(audit, subAudit) + ")");
+                        String inSubAudit = matcher.replaceAll("(one ($1 & " + formatSubAuditName(audit, subAudit) + "))");
                         specBuilder.append((i > 0 ? "and ":"") + "("+ inSubAudit + ")\n");
                     }
                 }
@@ -132,6 +132,22 @@ public class AuditGenerator {
             subAuditNames.add(formatSubAuditName(genEdAudit, subAudit));
         });
         return subAuditNames;
+    }
+
+    public ArrayList<String> getPrimaryAuditNames(){
+        ArrayList<String> primaryAuditNames = new ArrayList<>();
+        audit.getSubAudit().forEach(subAudit -> {
+            primaryAuditNames.add(formatSubAuditName(audit, subAudit));
+        });
+        return primaryAuditNames;
+    }
+    
+    public ArrayList<String> getGenEdAuditNames(){
+        ArrayList<String> genEdAuditNames = new ArrayList<>();
+        genEdAudit.getSubAudit().forEach(subAudit -> {
+            genEdAuditNames.add(formatSubAuditName(genEdAudit, subAudit));
+        });
+        return genEdAuditNames;
     }
 
     /**

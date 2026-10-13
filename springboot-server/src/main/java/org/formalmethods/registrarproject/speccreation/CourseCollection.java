@@ -55,19 +55,19 @@ class CourseCollection {
         }
 
         public String getCourseAlloy(){
-            String header = "one sig " + dept + num + " extends Course {}{\n";
+            String header = "lone sig " + dept + num + " extends Course {}{\n";
             String body = "";
 
-            if (!prereqs.contains("ALEKS") && !prereqs.contains("CEEB")){
+            if (!prereqs.contains("ALEKS") && !prereqs.contains("CEEB") && !prereqs.contains("Spatial") && !prereqs.contains("Language")){
 
                 Pattern preReqPattern = Pattern.compile("([A-Za-z][A-Za-z]+[0-9]{4})(\\(C\\))?");
 
                 body = preReqPattern.matcher(prereqs).replaceAll(
                     (mr) -> {
                         if (mr.group(2) != null && mr.group(2).equals("(C)")) {
-                            return "(" + mr.group(1) + " in prereqs or " + mr.group(1) + " in coreqs)";
+                            return "((one (" + mr.group(1) + " & prereqs)) or (one (" + mr.group(1) + " & coreqs)))";
                         } else {
-                            return mr.group(1) + " in prereqs";
+                            return "(one (" + mr.group(1) + " & prereqs))";
                         }
                     }
                 ) + "\n}\n";

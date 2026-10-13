@@ -29,7 +29,7 @@ public class AuditRunner {
 
     private AlloyRunner alloyRunner = null;
     private SpecCreator specCreator = null;
-    private static AlloyRunner.AlloyResult lastResult = null;
+    // private static AlloyRunner.AlloyResult lastResult = null;
 
     private boolean noViableState = false;
     private List<SemConfig> result = null;
@@ -42,7 +42,7 @@ public class AuditRunner {
     public void runAudit() {
         String alloySpec = specCreator.getSpecString();
         AlloyResult alloyResult = alloyRunner.runAlloySpec(alloySpec);
-        lastResult = alloyResult;
+        // lastResult = alloyResult;
         if (alloyResult instanceof AlloyFailedResult) {
             noViableState = true;
             return;
@@ -114,14 +114,15 @@ public class AuditRunner {
     }
 
     public static void evaluateLastResult() {
-        if (lastResult == null) {
-            throw new IllegalStateException("No Alloy result to evaluate.");
-        }
-        if (lastResult instanceof AlloyFailedResult) {
-        } else if (lastResult instanceof AlloySuccessfulResult) {
-            AlloySuccessfulResult successfulResult = (AlloySuccessfulResult) lastResult;
-            successfulResult.eval("CS1000 in semCourses");
-        }
+        // if (lastResult == null) {
+        //     throw new IllegalStateException("No Alloy result to evaluate.");
+        // }
+        // if (lastResult instanceof AlloyFailedResult) {
+        // } else if (lastResult instanceof AlloySuccessfulResult) {
+        //     AlloySuccessfulResult successfulResult = (AlloySuccessfulResult) lastResult;
+        //     successfulResult.eval("CS1000 in semCourses");
+        // }
+        throw new IllegalStateException("NOT IMPLEMENTED");
     }
 
 }

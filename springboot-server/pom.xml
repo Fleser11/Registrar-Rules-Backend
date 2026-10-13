@@ -81,7 +81,7 @@
         <!-- Alloy -->
         <dependency>
             <groupId>org.alloytools</groupId>
-            <artifactId>org.alloytools.alloy.application</artifactId>
+            <artifactId>org.alloytools.alloy.dist</artifactId>
             <version>6.2.0</version>
         </dependency>
         <!-- Database -->
